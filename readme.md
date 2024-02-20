@@ -1,4 +1,4 @@
-# Instituo Tecnológio de Costa Rica
+# Instituto Tecnológio de Costa Rica
 
 ## Proyecto 1 - Community Music Player 1.0
 
@@ -11,10 +11,9 @@
 - José Bernardo Barquero Bonilla (2023150476)
 - Alexander Montero Vargas (2023166058)
 
-
 #### Profesor
 
-- Jose Isaac Ramírez Herrera (joramirez@itcr.ac.cr)
+- Jose Isaac Ramírez Herrera (<joramirez@itcr.ac.cr>)
 
 ---
 
@@ -27,4 +26,3 @@
 - Diseñar una solución que permita resolver el problema descrito en esta especificación aplicando orientación a objetos, patrones de diseño y buenas prácticas de programación.
 - Implementar una solución que permita resolver el problema descrito en esta especificación utilizando Programación Orientada a Objetos en C++ y Rust, haciendo uso de estructuras de datos lineales y administración de memoria.
 - Elaborar la documentación correspondiente a la solución implementada para la evidencia del trabajo desarrollado utilizando estándares de documentación técnica y herramientas de gestión de proyectos.
-  
