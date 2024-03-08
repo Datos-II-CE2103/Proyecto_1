@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="bottonparapulsar">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>90</y>
+      <x>340</x>
+      <y>410</y>
       <width>88</width>
       <height>25</height>
      </rect>
@@ -31,6 +31,33 @@
     </property>
     <property name="checkable">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>170</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox::indicator{
+	width: 50px;
+	height: 50px;
+}
+
+QCheckBox::indicator:checked{
+	image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/toggleON.png&quot;);
+}
+
+QCheckBox::indicator:unchecked{
+	image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/toggleOFF.png&quot;);
+}</string>
+    </property>
+    <property name="text">
+     <string>CheckBox</string>
     </property>
    </widget>
   </widget>
