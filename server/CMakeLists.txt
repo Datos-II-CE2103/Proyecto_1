@@ -15,6 +15,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(RapidJSON CONFIG REQUIRED)
 target_link_libraries(rapidjson)
 
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
