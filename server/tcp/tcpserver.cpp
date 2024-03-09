@@ -2,10 +2,13 @@
 
 #include "tcpserver.h"
 #include <QObject>
+#include <glog/logging.h>
+
 
 MyTcpServer::MyTcpServer(QObject *parent) :
         QObject(parent)
 {
+
     server = new QTcpServer(this);
 
     // whenever a user connects, it will emit signal
@@ -19,9 +22,8 @@ MyTcpServer::MyTcpServer(QObject *parent) :
     else
     {
         qDebug() << "Server started!";
-        qDebug() <<server->serverPort();
-        qDebug() << server->serverAddress(),
-        qDebug() << server->isListening();
+        LOG(INFO) << "Server started! at port: " << server->serverPort();
+
     }
 }
 

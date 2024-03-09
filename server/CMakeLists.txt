@@ -16,13 +16,11 @@ find_package(RapidJSON CONFIG REQUIRED)
 target_link_libraries(rapidjson)
 
 #DEPENDENCIAS ADICIONALES
-
 #QT SOCKET && QTcpServer
 find_package(Qt6 REQUIRED COMPONENTS Network)
-
-
-#QTSettings
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package (glog 0.7.0 REQUIRED)
+find_package(gflags REQUIRED)
 
 
 qt_standard_project_setup()
@@ -65,6 +63,8 @@ endif()
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries (musicPlayerServer PRIVATE glog::glog)
+target_link_libraries(musicPlayerServer PRIVATE gflags::gflags)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
