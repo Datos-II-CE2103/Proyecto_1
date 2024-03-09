@@ -12,11 +12,11 @@
 #include <QString>
 #include <QDebug>
 
-class TcpServer : public QObject
+class MyTcpServer : public QObject
 {
 Q_OBJECT
 public:
-    explicit TcpServer(QObject *parent = 0);
+    explicit MyTcpServer(QObject *parent = 0);
 
 signals:
 
@@ -24,7 +24,7 @@ public slots:
     void newConnection();
 
 private:
-    TcpServer *server;
+    QTcpServer *server;
 };
 
 #endif //TSTQT_TCPSERVER_H

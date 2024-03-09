@@ -36,6 +36,7 @@ set(PROJECT_SOURCES
         estructuras_datos/linked_list.h
         estructuras_datos/inicializador.h
         tcp/tcpserver.h
+        tcp/tcpserver.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
