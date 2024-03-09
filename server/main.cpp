@@ -2,9 +2,9 @@
 #include <thread>
 #include <iostream>
 #include <QApplication>
-#include "headers/node.h"
-#include "headers/linked_list.h"
-#include "headers/inicializador.h"
+#include "estructuras_datos/node.h"
+#include "estructuras_datos/linked_list.h"
+#include "estructuras_datos/inicializador.h"
 #include <stdio.h>
 
 using namespace std;
