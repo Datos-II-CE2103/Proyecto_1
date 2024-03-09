@@ -5,6 +5,10 @@
 #include "estructuras_datos/node.h"
 #include "estructuras_datos/linked_list.h"
 #include "estructuras_datos/inicializador.h"
+#include <QCoreApplication>
+#include "tcp/tcpserver.h"
+#include <QSettings>
+#include <QString>
 #include <stdio.h>
 
 using namespace std;
