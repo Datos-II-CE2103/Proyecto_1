@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>600</width>
     <height>600</height>
    </rect>
   </property>
@@ -14,12 +14,12 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="bottonparapulsar">
+   <widget class="QPushButton" name="playBtn">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>410</y>
-      <width>88</width>
+      <x>250</x>
+      <y>470</y>
+      <width>25</width>
       <height>25</height>
      </rect>
     </property>
@@ -27,18 +27,18 @@
      <cursorShape>CrossCursor</cursorShape>
     </property>
     <property name="text">
-     <string>ok</string>
+     <string>play</string>
     </property>
     <property name="checkable">
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="TogglePaginacion">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>170</y>
-      <width>121</width>
+      <x>430</x>
+      <y>10</y>
+      <width>131</width>
       <height>41</height>
      </rect>
     </property>
@@ -57,7 +57,20 @@ QCheckBox::indicator:unchecked{
 }</string>
     </property>
     <property name="text">
-     <string>CheckBox</string>
+     <string>Paginación</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>470</y>
+      <width>25</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>pauseBtn</string>
     </property>
    </widget>
   </widget>
@@ -66,7 +79,7 @@ QCheckBox::indicator:unchecked{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>600</width>
      <height>22</height>
     </rect>
    </property>
@@ -76,7 +89,7 @@ QCheckBox::indicator:unchecked{
  <resources/>
  <connections>
   <connection>
-   <sender>bottonparapulsar</sender>
+   <sender>playBtn</sender>
    <signal>clicked()</signal>
    <receiver>statusbar</receiver>
    <slot>hide()</slot>
