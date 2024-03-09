@@ -5,6 +5,10 @@
 #include "estructuras_datos/node.h"
 #include "estructuras_datos/linked_list.h"
 #include "estructuras_datos/inicializador.h"
+#include <QCoreApplication>
+#include "tcp/tcpserver.h"
+#include <QSettings>
+#include <QString>
 #include <stdio.h>
 
 using namespace std;
@@ -22,6 +26,11 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
+
+
+    MyTcpServer server;
+
+
     MainWindow w;
     w.show();
     return a.exec();
