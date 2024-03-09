@@ -10,6 +10,7 @@
 #include <QSettings>
 #include <QString>
 #include <stdio.h>
+#include <glog/logging.h>
 
 using namespace std;
 
@@ -24,7 +25,8 @@ LinkedList* initial(){
 
 int main(int argc, char *argv[])
 {
-
+    google::SetLogDestination(google::GLOG_INFO,"../log/" );
+    google::InitGoogleLogging(argv[0]);
     QApplication a(argc, argv);
 
 
