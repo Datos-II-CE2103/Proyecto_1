@@ -8,9 +8,11 @@ import com.kdab.cxx_qt.demo 1.0
 
 Window {
     height: 480
-    title: qsTr("Titulo de pantalla")
+    title: qsTr("CMP - CLIENTE")
     visible: true
+    visibility: "Maximized"
     width: 640
+    color:"#363D4A"
 
     MyObject {
         id: myObject
@@ -23,24 +25,43 @@ Window {
         anchors.margins: 10
         spacing: 10
 
-        Label {
-            text: qsTr("Number: %1").arg(myObject.number)
+        Rectangle {
+            anchors.centerIn: parent
+            id: page
+            width: 320; height: 200
+            color: "#FFFFFF"
+            radius: 5
+
+            Column{
+                anchors.centerIn: parent
+                anchors.margins: 10
+                spacing: 20
+
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    id: helloText
+                    text: "No hay conexión"
+                    y: 20
+                    font.pointSize: 24; font.bold: true
+                    color: "#000000"
+                }
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Reintentar"
+                    width: 100
+                    height: 50
+
+                    onClicked: myObject.sayHi(myObject.string, myObject.number)
+                    background: Rectangle {
+                        width: 100
+                        height: 50
+                        color: "#0C9C4C"
+                        border.width: 0
+                        radius: 5
+                    }
+                }
+            }
         }
 
-        Label {
-            text: qsTr("String: %1").arg(myObject.string)
-        }
-
-        Button {
-            text: qsTr("Increment Number +")
-
-            onClicked: myObject.incrementNumber()
-        }
-
-        Button {
-            text: qsTr("Say Hi! terminal")
-
-            onClicked: myObject.sayHi(myObject.string, myObject.number)
-        }
     }
 }
