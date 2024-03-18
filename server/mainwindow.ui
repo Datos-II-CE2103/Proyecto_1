@@ -28,7 +28,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	border-image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/playButton.png&quot;)
+	border-image: url(&quot;../Assets/playButton.png&quot;)
 }</string>
     </property>
     <property name="text">
@@ -76,7 +76,7 @@ QCheckBox::indicator:unchecked{
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	border-image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/pauseButton.png&quot;)
+	border-image: url(&quot;../Assets/pauseButton.png&quot;)
 }</string>
     </property>
     <property name="text">
@@ -94,7 +94,7 @@ QCheckBox::indicator:unchecked{
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	border-image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/nextButton.png&quot;)
+	border-image: url(&quot;../Assets/nextButton.png&quot;)
 }</string>
     </property>
     <property name="text">
@@ -112,7 +112,7 @@ QCheckBox::indicator:unchecked{
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	border-image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/backButton.png&quot;)
+	border-image: url(&quot;../Assets/backButton.png&quot;)
 }</string>
     </property>
     <property name="text">
@@ -176,7 +176,7 @@ QCheckBox::indicator:unchecked{
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	border-image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/deleteButton.png&quot;)
+	border-image: url(&quot;../Assets/deleteButton.png&quot;)
 }</string>
     </property>
     <property name="text">
@@ -194,7 +194,7 @@ QCheckBox::indicator:unchecked{
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	border-image: url(&quot;/home/jose_barquero/Proyecto_1/server/Assets/volButton.png&quot;)
+	border-image: url(&quot;../Assets/volButton.png&quot;)
 }</string>
     </property>
     <property name="text">
