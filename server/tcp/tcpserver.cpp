@@ -5,7 +5,7 @@
 #include <glog/logging.h>
 
 #include <QSettings>
-#include <QVariant>
+
 using namespace std;
 
 
