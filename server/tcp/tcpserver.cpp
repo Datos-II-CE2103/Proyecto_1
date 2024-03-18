@@ -5,33 +5,36 @@
 #include <glog/logging.h>
 
 #include <QSettings>
+#include <QVariant>
+using namespace std;
 
 
 MyTcpServer::MyTcpServer(QObject *parent) :
         QObject(parent)
 {
-
     server = new QTcpServer(this);
 
-    QSettings settings("settings/server.ini", QSettings::IniFormat);
+    QSettings settings("../settings/server.ini", QSettings::Format::IniFormat);
 
-    int puerto=settings.value("ConfiguracionRed/PuertoEscucha").toInt();
+    int puerto = settings.value("configuracionred/puertoescucha").toInt();
 
-    // whenever a user connects, it will emit signal
+    qDebug() << "Puerto leído desde el archivo INI:" << puerto;
+
     connect(server, SIGNAL(newConnection()),
             this, SLOT(newConnection()));
 
     if(!server->listen(QHostAddress::LocalHost, puerto))
     {
         qDebug() << "Server could not start";
+        LOG(ERROR) << "Server could not started at port: " << server->serverPort();
     }
     else
     {
         qDebug() << "Server started!";
         LOG(INFO) << "Server started! at port: " << server->serverPort();
-
     }
 }
+
 
 void MyTcpServer::newConnection()
 {
