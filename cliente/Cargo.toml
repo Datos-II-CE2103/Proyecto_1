@@ -11,6 +11,9 @@ cxx-qt = "0.6.0"
 cxx-qt-lib = "0.6.0"
 rust-ini = "0.20.0"
 json= "0.12.4"
+qttypes = "0.2.8"
+qmetaobject_impl = "=0.2.9"
+qmetaobject = "=0.2.9"
 
 [build-dependencies]
 cxx-qt-build = { version = "0.6.0", features = [ "link_qt_object_files" ] }
