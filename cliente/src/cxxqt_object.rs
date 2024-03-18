@@ -25,17 +25,24 @@ pub mod qobject {
 
         #[qinvokable]
         fn say_hi(self: &MyObject, string: &QString, number: i32);
+
+        #[qinvokable]
+        fn chks(self: &MyObject);
     }
 }
 
 use core::pin::Pin;
-use cxx_qt_lib::QString;
+use cxx_qt_lib::{QListElement, QString};
 
 /// The Rust struct for the QObject
 #[derive(Default)]
 pub struct MyObjectRust {
     number: i32,
     string: QString,
+}
+
+pub struct State{
+    name: QString
 }
 
 impl qobject::MyObject {
@@ -47,6 +54,9 @@ impl qobject::MyObject {
 
     /// Print a log message with the given string and number
     pub fn say_hi(&self, string: &QString, number: i32) {
-        println!("Hi from Rust! String is '{string}' and number is {number}");
+        println!("Hola desde Rust! String is '{string}' and number is {number}");
+    }
+    pub fn chks(&self) {
+
     }
 }

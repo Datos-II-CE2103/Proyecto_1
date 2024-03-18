@@ -18,6 +18,13 @@ Window {
         id: myObject
         number: 1
         string: qsTr("My String with my number: %1").arg(myObject.number)
+
+        states: [
+            State {
+                name: "clicked"
+                PropertyChanges { target: helloText; visible: true }
+            }
+        ]
     }
 
     Column {
@@ -26,6 +33,7 @@ Window {
         spacing: 10
 
         Rectangle {
+            visible: true
             anchors.centerIn: parent
             id: page
             width: 320; height: 200
@@ -38,6 +46,7 @@ Window {
                 spacing: 20
 
                 Text {
+                    visible:false
                     anchors.horizontalCenter: parent.horizontalCenter
                     id: helloText
                     text: "No hay conexión"
@@ -46,12 +55,13 @@ Window {
                     color: "#000000"
                 }
                 Button {
+                    id:reintentarbtn
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Reintentar"
                     width: 100
                     height: 50
 
-                    onClicked: myObject.sayHi(myObject.string, myObject.number)
+                    onClicked: myObject.chks()
                     background: Rectangle {
                         width: 100
                         height: 50
@@ -59,6 +69,7 @@ Window {
                         border.width: 0
                         radius: 5
                     }
+
                 }
             }
         }

@@ -1,5 +1,6 @@
 pub mod cxxqt_object;
 use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QUrl};
+
 fn main() {
     // Create the application and engine
     let mut app = QGuiApplication::new();
