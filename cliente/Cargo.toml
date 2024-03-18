@@ -11,7 +11,7 @@ cxx-qt = "0.6.0"
 cxx-qt-lib = "0.6.0"
 rust-ini = "0.20.0"
 json= "0.12.4"
-cxx-qt-lib-headers = "0.6.0"
+
 
 [build-dependencies]
 cxx-qt-build = "0.6.0"
