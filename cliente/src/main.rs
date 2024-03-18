@@ -1,17 +1,17 @@
-pub mod cxxqt_object;
-use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QUrl};
-fn main() {
-    // Create the application and engine
-    let mut app = QGuiApplication::new();
-    let mut engine = QQmlApplicationEngine::new();
+slint::include_modules!();
 
-    // Load the QML path into the engine
-    if let Some(engine) = engine.as_mut() {
-        engine.load(&QUrl::from("qrc:/qt/qml/com/kdab/cxx_qt/demo/qml/main.qml"));
-    }
+fn main() -> Result<(), slint::PlatformError> {
+    let ui = AppWindow::new()?;
 
-    // Start the app
-    if let Some(app) = app.as_mut() {
-        app.exec();
-    }
+    ui.set_estado("disconnected".into());
+    ui.on_request_increase_value({
+        let ui_handle = ui.as_weak();
+        move || {
+            println!("btn pressed");
+            let ui = ui_handle.unwrap();
+            ui.set_estado("connected".into());
+        }
+    });
+
+    ui.run()
 }

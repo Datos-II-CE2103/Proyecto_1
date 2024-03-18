@@ -1,0 +1,62 @@
+import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+component Buttonx inherits Rectangle {
+    in-out property text <=> txt.text;
+    callback clicked <=> touch.clicked;
+    border-radius: 5px;
+    background: #0c9c4c; //touch.pressed ? #4CACAC  : touch.has-hover ? #50d98e :  #0C9C4C;
+    height: 30%;
+    width: 40%;
+    txt := Text {
+        font-size: 15px;
+        height: 90%;
+        width: 60%;
+        color: touch.pressed ? #fff : #eee;
+    }
+    touch := TouchArea { }
+}
+
+export component AppWindow inherits Window {
+    preferred-width: 1800px;
+    preferred-height: 900px;
+    background: #363D4A;
+    title: "CMP - CLIENTE";
+    always-on-top: true;
+    in-out property <int> counter: 42;
+    in-out property <string> estado: "";
+    callback request-increase-value();
+    VerticalLayout {
+        alignment: center;
+        HorizontalLayout {
+            alignment: center;
+            popup:=Rectangle{
+                height: 30%;
+                width: 30%;
+                background: #FFFFFF;
+                border-radius: 5px;
+                VerticalBox {
+                    
+                    alignment: stretch;
+                    Text {
+                        horizontal-alignment: center;
+                        font-size: 25px;
+                        text: "NO HAY CONEXION";
+                        height: 30%;
+                    }
+                    HorizontalBox{
+                        alignment: center;
+                        Buttonx {
+                        text: "Estado: \{root.estado}";
+                         clicked => {
+                            root.request-increase-value();
+                            if (root.estado=="connected"){
+                                popup.visible=false;
+                            }
+                         }
+                    }}
+                    
+                }
+            }
+        }
+    }
+}
+

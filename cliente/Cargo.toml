@@ -1,20 +1,17 @@
 [package]
-name = "untitled"
+name = "cmp"
 version = "0.1.0"
 edition = "2021"
+authors = ["Alexander Montero","Jose Barquero"]
+build = "build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cxx = "1.0.117"
-cxx-qt = "0.6.0"
-cxx-qt-lib = "0.6.0"
+slint = "1.4"
 rust-ini = "0.20.0"
 json= "0.12.4"
-qttypes = "0.2.8"
-qmetaobject_impl = "=0.2.9"
-qmetaobject = "=0.2.9"
+
 
 [build-dependencies]
-cxx-qt-build = { version = "0.6.0", features = [ "link_qt_object_files" ] }
-
+slint-build = "1.4"
