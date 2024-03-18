@@ -25,8 +25,12 @@ MainWindow::MainWindow(QWidget *parent)
     int max = 100;
     std::uniform_int_distribution<> dis(min, max);
     int random_number = dis(gen);
-
     memoryTxt->setText(QString::fromStdString(std::to_string(random_number)));
+
+    listArt = ui->listArt;
+    listArt->addItem("Feid");
+    listArt->addItem("Bad Bunny");
+    listArt->addItem("Karol G");
 
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handlePlayBtn()));
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handleInfoText()));
