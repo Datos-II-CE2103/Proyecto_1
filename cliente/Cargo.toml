@@ -9,6 +9,9 @@ build = "build.rs"
 
 [dependencies]
 slint = "1.4"
+rust-ini = "0.20.0"
+json= "0.12.4"
+
 
 [build-dependencies]
 slint-build = "1.4"

@@ -1,6 +1,8 @@
 #ifndef TSTQT_LINKED_LIST_H
 #define TSTQT_LINKED_LIST_H
 #include "node.h"
+#include <iostream>
+
 using namespace std;
 
 class LinkedList{
