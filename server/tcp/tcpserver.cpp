@@ -1,5 +1,3 @@
-// mytcpserver.cpp
-
 #include "tcpserver.h"
 #include <QObject>
 #include <glog/logging.h>
@@ -7,7 +5,6 @@
 #include <QSettings>
 
 using namespace std;
-
 
 MyTcpServer::MyTcpServer(QObject *parent) :
         QObject(parent)

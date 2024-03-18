@@ -7,13 +7,13 @@
 
 using namespace std;
 
-LinkedList* initial(){
+/*LinkedList* initial(){
     LinkedList* lista = new LinkedList();
     for (int i = 0; i < 5; i++) {
         lista->insertLast(i);
     }
     return lista;
-}
+}*/
 
 int main(int argc, char *argv[])
 {

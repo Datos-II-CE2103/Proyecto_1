@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 
+using namespace std;
+
 unsigned long long getMemoryUsage() {
     std::ifstream file("/proc/self/status");
     std::string line;
