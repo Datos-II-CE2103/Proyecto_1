@@ -2,22 +2,37 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <QTextEdit>
+#include <QListWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
+    class MainWindow;
 }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+
+    void handlePlayBtn() ;
+    void handleInfoText();
+    //void handleMemory();
+
 private:
     Ui::MainWindow *ui;
+    QPushButton* playBtn;
+    QTextEdit* infoTxt;
+    QTextEdit* memoryTxt;
+    QListWidget* listArt;
 };
+
 #endif // MAINWINDOW_H
+
