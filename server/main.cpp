@@ -25,8 +25,8 @@ LinkedList* initial(){
 
 int main(int argc, char *argv[])
 {
-    //google::SetLogDestination(google::GLOG_INFO,"../log/" );
-    //google::InitGoogleLogging(argv[0]);
+    google::SetLogDestination(google::GLOG_INFO,"../log/" );
+    google::InitGoogleLogging(argv[0]);
     QApplication a(argc, argv);
 
 

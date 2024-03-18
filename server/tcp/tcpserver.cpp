@@ -4,6 +4,8 @@
 #include <QObject>
 #include <glog/logging.h>
 
+#include <QSettings>
+
 
 MyTcpServer::MyTcpServer(QObject *parent) :
         QObject(parent)
@@ -11,11 +13,15 @@ MyTcpServer::MyTcpServer(QObject *parent) :
 
     server = new QTcpServer(this);
 
+    QSettings settings("settings/server.ini", QSettings::IniFormat);
+
+    int puerto=settings.value("ConfiguracionRed/PuertoEscucha").toInt();
+
     // whenever a user connects, it will emit signal
     connect(server, SIGNAL(newConnection()),
             this, SLOT(newConnection()));
 
-    if(!server->listen(QHostAddress::LocalHost, 4486))
+    if(!server->listen(QHostAddress::LocalHost, puerto))
     {
         qDebug() << "Server could not start";
     }
