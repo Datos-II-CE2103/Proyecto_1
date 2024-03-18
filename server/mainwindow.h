@@ -20,13 +20,16 @@ public:
     ~MainWindow();
 
 private slots:
-    static void handlePlayBtn() ;
-    static void handleInfoText();
+
+    void handlePlayBtn() ;
+    void handleInfoText();
+    //void handleMemory();
 
 private:
     Ui::MainWindow *ui;
     QPushButton* playBtn;
-    static QTextEdit* infoTxt;
+    QTextEdit* infoTxt;
+    QTextEdit* memoryTxt;
 };
 
 #endif // MAINWINDOW_H

@@ -13,6 +13,9 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -128,14 +131,14 @@ QCheckBox::indicator:unchecked{
     </property>
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>90</x>
       <y>120</y>
       <width>411</width>
       <height>261</height>
      </rect>
     </property>
     <property name="mouseTracking">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="acceptDrops">
      <bool>true</bool>
@@ -173,8 +176,8 @@ QCheckBox::indicator:unchecked{
    <widget class="QTextEdit" name="memoryTxt">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>50</y>
+      <x>10</x>
+      <y>120</y>
       <width>61</width>
       <height>31</height>
      </rect>
@@ -220,6 +223,33 @@ QCheckBox::indicator:unchecked{
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="toggleComunidad">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>60</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox::indicator{
+	width: 50px;
+	height: 50px;
+}
+
+QCheckBox::indicator:checked{
+	image: url(&quot;../Assets/toggleON.png&quot;);
+}
+
+QCheckBox::indicator:unchecked{
+	image: url(&quot;../Assets/toggleOFF.png&quot;);
+}</string>
+    </property>
+    <property name="text">
+     <string>Comunitario</string>
     </property>
    </widget>
   </widget>
