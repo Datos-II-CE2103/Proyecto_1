@@ -1,10 +1,24 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-
 #include <QPushButton>
 #include <iostream>
+#include <fstream>
+#include <string>
 
-#include <random>
+unsigned long long getMemoryUsage() {
+    std::ifstream file("/proc/self/status");
+    std::string line;
+    unsigned long long memory_usage = 0;
+
+    while (std::getline(file, line)) {
+        if (line.substr(0, 6) == "VmSize") {
+            memory_usage = std::stoull(line.substr(7));
+            break;
+        }
+    }
+
+    return memory_usage;
+}
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent)
@@ -19,13 +33,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     memoryTxt=ui->memoryTxt;
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    int min = 1;
-    int max = 100;
-    std::uniform_int_distribution<> dis(min, max);
-    int random_number = dis(gen);
-    memoryTxt->setText(QString::fromStdString(std::to_string(random_number)));
+    unsigned long long memory_used = getMemoryUsage();
+
+    memoryTxt->setText(QString::fromStdString(std::to_string(memory_used)));
 
     listArt = ui->listArt;
     listArt->addItem("Feid");
