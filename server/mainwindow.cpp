@@ -12,11 +12,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     playBtn = ui->playBtn;
 
+    infoTxt = ui->infoTxt;
+
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handlePlayBtn()));
+    connect(playBtn, SIGNAL(clicked()), this, SLOT(handleInfoText()));
 }
 
 void MainWindow::handlePlayBtn() {
     std::cout << "Play" << std::endl;
+}
+
+void MainWindow::handleInfoText() {
+    infoTxt->setText("Hola");
 }
 
 MainWindow::~MainWindow()

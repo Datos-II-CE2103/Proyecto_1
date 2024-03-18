@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
+#include <QTextEdit>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,10 +21,12 @@ public:
 
 private slots:
     static void handlePlayBtn() ;
+    static void handleInfoText();
 
 private:
     Ui::MainWindow *ui;
     QPushButton* playBtn;
+    static QTextEdit* infoTxt;
 };
 
 #endif // MAINWINDOW_H
