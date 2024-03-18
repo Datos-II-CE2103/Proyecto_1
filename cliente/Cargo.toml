@@ -1,18 +1,14 @@
 [package]
-name = "untitled"
+name = "cmp"
 version = "0.1.0"
 edition = "2021"
+authors = ["Alexander Montero","Jose Barquero"]
+build = "build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cxx = "1.0.117"
-cxx-qt = "0.6.0"
-cxx-qt-lib = "0.6.0"
-rust-ini = "0.20.0"
-json= "0.12.4"
-
+slint = "1.4"
 
 [build-dependencies]
-cxx-qt-build = "0.6.0"
-
+slint-build = "1.4"
