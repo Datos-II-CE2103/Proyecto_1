@@ -15,7 +15,7 @@ using namespace std;
     return lista;
 }*/
 
-int main(int argc, char *argv[])
+/*int main(int argc, char *argv[])
 {
     google::SetLogDestination(google::GLOG_INFO,"../log/" );
     google::InitGoogleLogging(argv[0]);
@@ -27,4 +27,4 @@ int main(int argc, char *argv[])
     w.show();
 
     return a.exec();
-}
+}*/
