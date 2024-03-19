@@ -1,6 +1,5 @@
 #include "tcpserver.h"
 #include <QObject>
-#include <glog/logging.h>
 
 #include <QSettings>
 
@@ -23,12 +22,10 @@ MyTcpServer::MyTcpServer(QObject *parent) :
     if(!server->listen(QHostAddress::LocalHost, puerto))
     {
         qDebug() << "Server could not start";
-        LOG(ERROR) << "Server could not started at port: " << server->serverPort();
     }
     else
     {
         qDebug() << "Server started!";
-        LOG(INFO) << "Server started! at port: " << server->serverPort();
     }
 }
 
