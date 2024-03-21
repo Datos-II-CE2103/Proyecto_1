@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     MyTcpServer server;
 
     MainWindow w;
+    w.showMaximized();
     w.show();
 
     return a.exec();

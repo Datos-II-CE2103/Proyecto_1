@@ -1,9 +1,12 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QPushButton>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <QDir>
 
 using namespace std;
 
@@ -27,6 +30,15 @@ MainWindow::MainWindow(QWidget *parent)
         , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    player = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    player->setAudioOutput(audioOutput);
+    QString home=QDir::homePath();
+    player->setSource(QUrl::fromLocalFile(home+"/Music/file.mp3"));
+    cout<<player->hasAudio();
+    audioOutput->setVolume(50);
+    player->play();
 
     playBtn = ui->playBtn;
 

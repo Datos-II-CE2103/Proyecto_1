@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include <QListWidget>
+#include <QMediaPlayer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,6 +33,10 @@ private:
     QTextEdit* infoTxt;
     QTextEdit* memoryTxt;
     QListWidget* listArt;
+    QMediaPlayer *player;
+    QAudioOutput *audioOutput;
+
+    void handlePlayBtn(QMediaPlayer *player);
 };
 
 #endif // MAINWINDOW_H
