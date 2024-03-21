@@ -10,7 +10,7 @@ int main() {
 
         TagLib::Tag *tag = f.tag();
 
-        cout << "-- TAG (basic) --" << endl;
+        cout << "-- TAG (basic) LIST:--" << endl;
         cout << "title   - \"" << tag->title()   << "\"" << endl;
         cout << "artist  - \"" << tag->artist()  << "\"" << endl;
         cout << "album   - \"" << tag->album()   << "\"" << endl;
