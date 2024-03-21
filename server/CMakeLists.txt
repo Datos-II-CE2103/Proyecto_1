@@ -37,6 +37,7 @@ set(PROJECT_SOURCES
         estructuras_datos/inicializador.h
         tcp/tcpserver.h
         tcp/tcpserver.cpp
+        estructuras_datos/cancion_object.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
