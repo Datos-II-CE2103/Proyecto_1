@@ -35,10 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
     QString home=QDir::homePath();
-    player->setSource(QUrl::fromLocalFile(home+"/Music/file.mp3"));
+    player->setSource(QUrl::fromLocalFile(home+"/Music/NinaBonita.mp3"));
     cout<<player->hasAudio();
     audioOutput->setVolume(50);
-    player->play();
 
     playBtn = ui->playBtn;
 
@@ -58,9 +57,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handlePlayBtn()));
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handleInfoText()));
+
 }
 
 void MainWindow::handlePlayBtn() {
+    player->play();
     std::cout << "Play" << std::endl;
 }
 
