@@ -9,15 +9,10 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Dependencias adicionales
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network Core)
 find_package(RapidJSON CONFIG REQUIRED)
-target_link_libraries(rapidjson)
-
-# DEPENDENCIAS ADICIONALES
-# QT SOCKET && QTcpServer
-find_package(Qt6 REQUIRED COMPONENTS Network)
-find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(glog 0.7.0 REQUIRED)
 find_package(gflags REQUIRED)
 
