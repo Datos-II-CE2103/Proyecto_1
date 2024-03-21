@@ -23,20 +23,20 @@ public:
 
 private slots:
 
-    void handlePlayBtn() ;
+    void handlePlayBtn();
+    void handlePauseBtn();
     void handleInfoText();
     //void handleMemory();
 
 private:
     Ui::MainWindow *ui;
     QPushButton* playBtn;
+    QPushButton* pauseBtn;
     QTextEdit* infoTxt;
     QTextEdit* memoryTxt;
     QListWidget* listArt;
     QMediaPlayer *player;
     QAudioOutput *audioOutput;
-
-    void handlePlayBtn(QMediaPlayer *player);
 };
 
 #endif // MAINWINDOW_H

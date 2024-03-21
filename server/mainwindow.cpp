@@ -64,7 +64,10 @@ void MainWindow::handlePlayBtn() {
     player->play();
     std::cout << "Play" << std::endl;
 }
-
+void MainWindow::handlePauseBtn() {
+    player->pause();
+    std::cout << "Pause" << std::endl;
+}
 void MainWindow::handleInfoText() {
     infoTxt->setText("Hola");
 }
