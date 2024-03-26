@@ -2,3 +2,8 @@
 #define MUSICPLAYERSERVER_CANCION_OBJECT_H
 
 #endif //MUSICPLAYERSERVER_CANCION_OBJECT_H
+//NOMBRE
+//Artista
+//album
+//duracion
+//ruta
