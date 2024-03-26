@@ -8,6 +8,7 @@
 #include <string>
 #include <QDir>
 #include <QThread>
+#include <QtConcurrent>
 
 using namespace std;
 
@@ -58,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handlePlayBtn()));
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handleInfoText()));
-    connect(myThread, SIGNAL(started()),this,SLOT(handleTcpConnections()));
+    //connect(socketEscucha, SIGNAL(newConnection()),this,SLOT(handlePlayBtn()));
     connect(socketEscucha, SIGNAL(newConnection()), this, SLOT(handleTcpConnections()));
 }
 
@@ -76,20 +77,19 @@ void MainWindow::handleInfoText() {
 void MainWindow::startTcp() {
     myThread= new QThread;
     socketEscucha= new QTcpServer;
-    socketEscucha->listen(QHostAddress::LocalHost,9887);
+    socketEscucha->listen(QHostAddress::LocalHost,8097);
+    socketRespuesta=new QTcpSocket;
+    socketRespuesta->moveToThread(myThread);
     socketEscucha->moveToThread(myThread);
     myThread->start();
 }
 void MainWindow::handleTcpConnections() {
-    cout<<"new connection";
-    QTcpSocket *socket = socketEscucha->nextPendingConnection();
-
-    socket->write("Hello client\r\n");
-    socket->flush();
-
-    socket->waitForBytesWritten(3000);
-
-    socket->close();
+            socketRespuesta = socketEscucha->nextPendingConnection();
+            socketRespuesta->write("Hello\r\n");
+            socketRespuesta->flush();
+            socketRespuesta->waitForBytesWritten(3000);
+            socketRespuesta->close();
+            player->play();
 }
 
 MainWindow::~MainWindow()

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     google::InitGoogleLogging(argv[0]);
     QApplication a(argc, argv);
 
-    MyTcpServer server;
+    //MyTcpServer server;
 
     MainWindow w;
     w.showMaximized();
