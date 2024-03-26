@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <QDir>
+#include <QThread>
 
 using namespace std;
 
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
         , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    startTcp();
     player = new QMediaPlayer;
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
@@ -57,7 +58,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handlePlayBtn()));
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handleInfoText()));
-
+    connect(myThread, SIGNAL(started()),this,SLOT(handleTcpConnections()));
+    connect(socketEscucha, SIGNAL(newConnection()), this, SLOT(handleTcpConnections()));
 }
 
 void MainWindow::handlePlayBtn() {
@@ -70,6 +72,24 @@ void MainWindow::handlePauseBtn() {
 }
 void MainWindow::handleInfoText() {
     infoTxt->setText("Hola");
+}
+void MainWindow::startTcp() {
+    myThread= new QThread;
+    socketEscucha= new QTcpServer;
+    socketEscucha->listen(QHostAddress::LocalHost,9887);
+    socketEscucha->moveToThread(myThread);
+    myThread->start();
+}
+void MainWindow::handleTcpConnections() {
+    cout<<"new connection";
+    QTcpSocket *socket = socketEscucha->nextPendingConnection();
+
+    socket->write("Hello client\r\n");
+    socket->flush();
+
+    socket->waitForBytesWritten(3000);
+
+    socket->close();
 }
 
 MainWindow::~MainWindow()
