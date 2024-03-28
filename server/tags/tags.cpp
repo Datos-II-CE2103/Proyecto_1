@@ -3,7 +3,7 @@
 #include "taglib/fileref.h"
 using namespace std;
 
-int main() {
+int tags() {
     //SE DEBE AÑADIR UNA RUTA DE ARCHIVO MUSICAL, USAR QTDir
     TagLib::FileRef f("../file.mp3");
 
