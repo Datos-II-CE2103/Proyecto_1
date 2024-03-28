@@ -39,7 +39,7 @@ void MyTcpServer::newConnection()
     //need to grab the socket
     QTcpSocket *socket = server->nextPendingConnection();
 
-    socket->write("bbaygirl\r\n");
+    socket->write("Hello!\r\n");
     socket->flush();
 
     socket->waitForBytesWritten(3000);
