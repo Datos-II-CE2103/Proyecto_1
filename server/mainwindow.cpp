@@ -8,7 +8,7 @@
 #include <string>
 #include <QDir>
 #include <QThread>
-#include <QtConcurrent>
+
 
 using namespace std;
 
@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handlePlayBtn()));
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handleInfoText()));
     //connect(socketEscucha, SIGNAL(newConnection()),this,SLOT(handlePlayBtn()));
-    connect(socketEscucha, SIGNAL(newConnection()), this, SLOT(handleTcpConnections()));
+    connect(socketEscucha, SIGNAL(nuevaConex()), this, SLOT(handleTcpConnections()));
 }
 
 void MainWindow::handlePlayBtn() {
@@ -76,19 +76,11 @@ void MainWindow::handleInfoText() {
 }
 void MainWindow::startTcp() {
     myThread= new QThread;
-    socketEscucha= new QTcpServer;
-    socketEscucha->listen(QHostAddress::LocalHost,8097);
-    socketRespuesta=new QTcpSocket;
-    socketRespuesta->moveToThread(myThread);
+    socketEscucha= new MyTcpServer;
     socketEscucha->moveToThread(myThread);
     myThread->start();
 }
 void MainWindow::handleTcpConnections() {
-            socketRespuesta = socketEscucha->nextPendingConnection();
-            socketRespuesta->write("Hello\r\n");
-            socketRespuesta->flush();
-            socketRespuesta->waitForBytesWritten(3000);
-            socketRespuesta->close();
             player->play();
 }
 
