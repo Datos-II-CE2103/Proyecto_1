@@ -19,8 +19,12 @@ target_link_libraries(rapidjson)
 #QT SOCKET && QTcpServer
 find_package(Qt6 REQUIRED COMPONENTS Network)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Multimedia)
+find_package(Qt6 REQUIRED COMPONENTS Concurrent)
+find_package(TagLib 2.0.0 REQUIRED)
 find_package (glog 0.7.0 REQUIRED)
 find_package(gflags REQUIRED)
+
 
 
 qt_standard_project_setup()
@@ -35,6 +39,8 @@ set(PROJECT_SOURCES
         estructuras_datos/inicializador.h
         tcp/tcpserver.h
         tcp/tcpserver.cpp
+        estructuras_datos/cancion_object.h
+        tags/tags.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -63,8 +69,12 @@ endif()
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Multimedia)
+target_link_libraries(musicPlayerServer PRIVATE Qt6::Concurrent)
+target_link_libraries(musicPlayerServer PRIVATE TagLib::tag)
 target_link_libraries (musicPlayerServer PRIVATE glog::glog)
-target_link_libraries(musicPlayerServer PRIVATE gflags::gflags)
+target_link_libraries(musicPlayerServer PRIVATE gflags)
+
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

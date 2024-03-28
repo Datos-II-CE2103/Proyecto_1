@@ -1,9 +1,14 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QPushButton>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <QDir>
+#include <QThread>
+#include <QtConcurrent>
 
 using namespace std;
 
@@ -27,6 +32,14 @@ MainWindow::MainWindow(QWidget *parent)
         , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    startTcp();
+    player = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    player->setAudioOutput(audioOutput);
+    QString home=QDir::homePath();
+    player->setSource(QUrl::fromLocalFile(home+"/Music/NinaBonita.mp3"));
+    cout<<player->hasAudio();
+    audioOutput->setVolume(50);
 
     playBtn = ui->playBtn;
 
@@ -46,14 +59,37 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handlePlayBtn()));
     connect(playBtn, SIGNAL(clicked()), this, SLOT(handleInfoText()));
+    //connect(socketEscucha, SIGNAL(newConnection()),this,SLOT(handlePlayBtn()));
+    connect(socketEscucha, SIGNAL(newConnection()), this, SLOT(handleTcpConnections()));
 }
 
 void MainWindow::handlePlayBtn() {
+    player->play();
     std::cout << "Play" << std::endl;
 }
-
+void MainWindow::handlePauseBtn() {
+    player->pause();
+    std::cout << "Pause" << std::endl;
+}
 void MainWindow::handleInfoText() {
     infoTxt->setText("Hola");
+}
+void MainWindow::startTcp() {
+    myThread= new QThread;
+    socketEscucha= new QTcpServer;
+    socketEscucha->listen(QHostAddress::LocalHost,8097);
+    socketRespuesta=new QTcpSocket;
+    socketRespuesta->moveToThread(myThread);
+    socketEscucha->moveToThread(myThread);
+    myThread->start();
+}
+void MainWindow::handleTcpConnections() {
+            socketRespuesta = socketEscucha->nextPendingConnection();
+            socketRespuesta->write("Hello\r\n");
+            socketRespuesta->flush();
+            socketRespuesta->waitForBytesWritten(3000);
+            socketRespuesta->close();
+            player->play();
 }
 
 MainWindow::~MainWindow()

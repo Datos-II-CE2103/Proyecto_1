@@ -15,7 +15,7 @@ MyTcpServer::MyTcpServer(QObject *parent) :
 
     int puerto = settings.value("configuracionred/puertoescucha").toInt();
 
-    qDebug() << "Puerto leído desde el archivo INI:" << puerto;
+    qDebug() << "Puerto leído desde el archivo INI (ss):" << puerto;
 
     connect(server, SIGNAL(newConnection()),
             this, SLOT(newConnection()));
