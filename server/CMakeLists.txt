@@ -21,6 +21,7 @@ find_package(Qt6 REQUIRED COMPONENTS Network)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Multimedia)
 find_package(Qt6 REQUIRED COMPONENTS Concurrent)
+find_package(TagLib 2.0.0 REQUIRED)
 find_package (glog 0.7.0 REQUIRED)
 find_package(gflags REQUIRED)
 
@@ -39,6 +40,7 @@ set(PROJECT_SOURCES
         tcp/tcpserver.h
         tcp/tcpserver.cpp
         estructuras_datos/cancion_object.h
+        tags/tags.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -69,6 +71,7 @@ target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Core)
 target_link_libraries(musicPlayerServer PRIVATE Qt${QT_VERSION_MAJOR}::Multimedia)
 target_link_libraries(musicPlayerServer PRIVATE Qt6::Concurrent)
+target_link_libraries(musicPlayerServer PRIVATE TagLib::tag)
 target_link_libraries (musicPlayerServer PRIVATE glog::glog)
 target_link_libraries(musicPlayerServer PRIVATE gflags)
 
