@@ -41,6 +41,7 @@ set(PROJECT_SOURCES
         tcp/tcpserver.cpp
         estructuras_datos/cancion_object.h
         tags/tags.cpp
+        estructuras_datos/Cancion.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
