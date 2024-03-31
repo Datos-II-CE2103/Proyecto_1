@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "estructuras_datos/linked_list.h"
+#include "estructuras_datos/doubly_linked_list.h"
 #include "tcp/tcpserver.h"
 #include <glog/logging.h>
 #include <string>

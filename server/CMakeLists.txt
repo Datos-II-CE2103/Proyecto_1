@@ -35,13 +35,14 @@ set(PROJECT_SOURCES
         mainwindow.h
         mainwindow.ui
         estructuras_datos/node.h
-        estructuras_datos/linked_list.h
+        estructuras_datos/doubly_linked_list.h
         estructuras_datos/inicializador.h
         tcp/tcpserver.h
         tcp/tcpserver.cpp
-        estructuras_datos/cancion_object.h
+        estructuras_datos/cancion.h
         tags/tags.cpp
         estructuras_datos/Cancion.cpp
+        estructuras_datos/DoublyLinkedList.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

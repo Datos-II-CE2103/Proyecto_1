@@ -1,34 +1,35 @@
 #ifndef NODO_H
 #define NODO_H
 
-class nodo {
+#include "cancion.h"
 
+class nodo {
 private:
-    int valueNode;
+    Cancion* valueNode;
     nodo* nextNode;
     nodo* prevNode;
 
 public:
     ~nodo();
     nodo(){
-        valueNode=0;
-        nextNode= nullptr;
-        prevNode= nullptr;
+        valueNode = nullptr;
+        nextNode = nullptr;
+        prevNode = nullptr;
     }
-    nodo(int newValor, nodo *n, nodo *p)
+    nodo(Cancion* newValue, nodo *n, nodo *p)
     {
-        valueNode=newValor;
-        nextNode=n;
-        prevNode=p;
+        valueNode = newValue;
+        nextNode = n;
+        prevNode = p;
     }
-    nodo(int newValor)
+    nodo(Cancion* newValue)
     {
-        valueNode=newValor;
-        nextNode= nullptr;
-        prevNode= nullptr;
+        valueNode = newValue;
+        nextNode = nullptr;
+        prevNode = nullptr;
     }
 
-    int getValueNode() const {
+    Cancion* getValueNode() const {
         return valueNode;
     }
 
@@ -40,16 +41,16 @@ public:
         return prevNode;
     }
 
-    void setValueNode(int valueNode) {
-        nodo::valueNode = valueNode;
+    void setValueNode(Cancion* value) {
+        valueNode = value;
     }
 
-    void setNextNode(nodo *nextNode) {
-        nodo::nextNode = nextNode;
+    void setNextNode(nodo *next) {
+        nextNode = next;
     }
 
-    void setPrevNode(nodo *prevNode) {
-        nodo::prevNode = prevNode;
+    void setPrevNode(nodo *prev) {
+        prevNode = prev;
     }
 };
 
