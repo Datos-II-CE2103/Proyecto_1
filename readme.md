@@ -1,4 +1,4 @@
-# Instituto Tecnológio de Costa Rica
+# Instituto Tecnológico de Costa Rica
 
 ## Proyecto 1 - Community Music Player 1.0
 
