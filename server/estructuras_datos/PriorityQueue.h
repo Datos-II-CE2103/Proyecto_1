@@ -17,7 +17,6 @@ public:
     void remove();
     bool isEmpty() const;
     bool isFull() const;
-    void print() const;
 };
 
 #endif // PRIORITY_QUEUE_H

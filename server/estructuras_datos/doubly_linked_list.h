@@ -30,7 +30,6 @@ public:
     void insertLast(Cancion* element);
     void removeFirst();
     void removeLast();
-    void printList() const;
 };
 
 #endif // LINKED_LIST_H

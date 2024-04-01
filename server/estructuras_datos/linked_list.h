@@ -23,7 +23,6 @@ public:
     void removeFromBeginning();
     void removeFromEnd();
     bool search(Cancion* value) const;
-    void print() const;
 };
 
 #endif // LINKED_LIST_H

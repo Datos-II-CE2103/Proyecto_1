@@ -41,8 +41,3 @@ bool PriorityQueue::isEmpty() const {
 bool PriorityQueue::isFull() const {
     return list.getSize() >= maxSize;
 }
-
-void PriorityQueue::print() const {
-    std::cout << "Cola de prioridad:" << std::endl;
-    list.print();
-}
