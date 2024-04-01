@@ -36,7 +36,6 @@ set(PROJECT_SOURCES
         mainwindow.ui
         estructuras_datos/node.h
         estructuras_datos/doubly_linked_list.h
-        estructuras_datos/inicializador.h
         tcp/tcpserver.h
         tcp/tcpserver.cpp
         estructuras_datos/cancion.h

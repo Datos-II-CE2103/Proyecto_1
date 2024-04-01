@@ -1,5 +1,3 @@
-// priority_queue.cpp
-
 #include "PriorityQueue.h"
 #include <iostream>
 
@@ -13,10 +11,8 @@ void PriorityQueue::insert(Cancion* song) {
         return;
     }
 
-    // Obtener el voto efectivo de la canción
     int effectiveVotes = song->getUpVotes() - song->getDownVotes();
 
-    // Buscar el lugar adecuado para insertar la canción según su voto efectivo
     nodo* current = list.getHead();
     while (current && effectiveVotes <= (current->getValueNode()->getUpVotes() - current->getValueNode()->getDownVotes())) {
         current = current->getNextNode();
