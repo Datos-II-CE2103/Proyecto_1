@@ -43,9 +43,10 @@ set(PROJECT_SOURCES
         estructuras_datos/Cancion.cpp
         estructuras_datos/DoublyLinkedList.cpp
         estructuras_datos/linked_list.h
-        estructuras_datos/LinkedList.cpp
         estructuras_datos/PriorityQueue.h
         estructuras_datos/PriorityQueue.cpp
+        estructuras_datos/Node.cpp
+        estructuras_datos/LinkedList.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

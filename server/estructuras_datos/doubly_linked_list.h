@@ -1,28 +1,26 @@
-// linked_list.h
-
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef DOUBLY_LINKED_LIST_H
+#define DOUBLY_LINKED_LIST_H
 
 #include "node.h"
 #include <iostream>
 
-class LinkedList {
+class DoublyLinkedList {
 private:
-    nodo* head;
-    nodo* tail;
-    nodo* current;
+    node* head;
+    node* tail;
+    node* current;
     int size;
 
 public:
-    LinkedList();
-    ~LinkedList();
+    DoublyLinkedList();
+    ~DoublyLinkedList();
 
-    nodo* getHead() const;
-    void setHead(nodo* head);
-    nodo* getTail() const;
-    void setTail(nodo* tail);
-    nodo* getCurrent() const;
-    void setCurrent(nodo* current);
+    node* getHead() const;
+    void setHead(node* headPtr);
+    node* getTail() const;
+    void setTail(node* tailPtr);
+    node* getCurrent() const;
+    void setCurrent(node* currentPtr);
     int getSize() const;
 
     bool isEmpty() const;
@@ -32,4 +30,4 @@ public:
     void removeLast();
 };
 
-#endif // LINKED_LIST_H
+#endif // DOUBLY_LINKED_LIST_H

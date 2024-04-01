@@ -11,7 +11,7 @@ using namespace std;
 
 void printDir(){
     QString home=QDir::homePath();
-    string carpeta=home.toStdString()+"/Music";
+    string carpeta=home.toStdString()+"/Música";
     for (auto &p : std::filesystem::directory_iterator(carpeta))
         std::cout << p << '\n';
 }

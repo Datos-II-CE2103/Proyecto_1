@@ -1,20 +1,35 @@
 #include "linked_list.h"
-#include <iostream>
 
-LinkedList::LinkedList() : head(nullptr), tail(nullptr), size(0) {}
+LinkedList::LinkedList() : head(nullptr), tail(nullptr), current(nullptr), size(0) {}
 
 LinkedList::~LinkedList() {
     while (!isEmpty()) {
-        removeFromBeginning();
+        removeFirst();
     }
 }
 
-nodo* LinkedList::getHead() const {
+node* LinkedList::getHead() const {
     return head;
 }
 
-nodo* LinkedList::getTail() const {
+void LinkedList::setHead(node* headPtr) {
+    this->head = headPtr;
+}
+
+node* LinkedList::getTail() const {
     return tail;
+}
+
+void LinkedList::setTail(node* tailPtr) {
+    this->tail = tailPtr;
+}
+
+node* LinkedList::getCurrent() const {
+    return current;
+}
+
+void LinkedList::setCurrent(node* currentPtr) {
+    this->current = currentPtr;
 }
 
 int LinkedList::getSize() const {
@@ -22,11 +37,12 @@ int LinkedList::getSize() const {
 }
 
 bool LinkedList::isEmpty() const {
-    return head == nullptr;
+    return (head == nullptr);
 }
 
-void LinkedList::insertAtBeginning(Cancion* value) {
-    nodo* newNode = new nodo(value);
+void LinkedList::insertFirst(Cancion* element) {
+    node* newNode = new node(element);
+
     if (isEmpty()) {
         head = tail = newNode;
     } else {
@@ -34,24 +50,51 @@ void LinkedList::insertAtBeginning(Cancion* value) {
         head->setPrevNode(newNode);
         head = newNode;
     }
+
     size++;
 }
 
-void LinkedList::insertAtEnd(Cancion* value) {
-    nodo* newNode = new nodo(value);
+void LinkedList::insertLast(Cancion* element) {
+    node* newNode = new node(element);
+
     if (isEmpty()) {
         head = tail = newNode;
     } else {
-        tail->setNextNode(newNode);
         newNode->setPrevNode(tail);
+        tail->setNextNode(newNode);
         tail = newNode;
     }
+
     size++;
 }
 
-void LinkedList::insertBefore(nodo* nextNode, Cancion* value) {
-    nodo* newNode = new nodo(value);
-    nodo* prevNode = nextNode->getPrevNode();
+void LinkedList::removeFirst() {
+    if (!isEmpty()) {
+        node* temp = head;
+        head = head->getNextNode();
+        if (head) {
+            head->setPrevNode(nullptr);
+        }
+        delete temp;
+        size--;
+    }
+}
+
+void LinkedList::removeLast() {
+    if (!isEmpty()) {
+        node* temp = tail;
+        tail = tail->getPrevNode();
+        if (tail) {
+            tail->setNextNode(nullptr);
+        }
+        delete temp;
+        size--;
+    }
+}
+
+void LinkedList::insertBefore(node* nextNode, Cancion* value) {
+    node* newNode = new node(value);
+    node* prevNode = nextNode->getPrevNode();
 
     newNode->setNextNode(nextNode);
     newNode->setPrevNode(prevNode);
@@ -68,7 +111,7 @@ void LinkedList::insertBefore(nodo* nextNode, Cancion* value) {
 
 void LinkedList::removeFromBeginning() {
     if (!isEmpty()) {
-        nodo* temp = head;
+        node* temp = head;
         head = head->getNextNode();
         if (head) {
             head->setPrevNode(nullptr);
@@ -76,27 +119,4 @@ void LinkedList::removeFromBeginning() {
         delete temp;
         size--;
     }
-}
-
-void LinkedList::removeFromEnd() {
-    if (!isEmpty()) {
-        nodo* temp = tail;
-        tail = tail->getPrevNode();
-        if (tail) {
-            tail->setNextNode(nullptr);
-        }
-        delete temp;
-        size--;
-    }
-}
-
-bool LinkedList::search(Cancion* value) const {
-    nodo* current = head;
-    while (current) {
-        if (current->getValueNode() == value) {
-            return true;
-        }
-        current = current->getNextNode();
-    }
-    return false;
 }

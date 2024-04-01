@@ -13,13 +13,14 @@ void PriorityQueue::insert(Cancion* song) {
 
     int effectiveVotes = song->getUpVotes() - song->getDownVotes();
 
-    nodo* current = list.getHead();
+    node* current = list.getHead();
+
     while (current && effectiveVotes <= (current->getValueNode()->getUpVotes() - current->getValueNode()->getDownVotes())) {
         current = current->getNextNode();
     }
 
     if (!current) {
-        list.insertAtEnd(song);
+        list.insertLast(song);
     } else {
         list.insertBefore(current, song);
     }

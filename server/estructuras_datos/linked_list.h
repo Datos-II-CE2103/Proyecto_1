@@ -2,27 +2,34 @@
 #define LINKED_LIST_H
 
 #include "node.h"
+#include <iostream>
 
 class LinkedList {
 private:
-    nodo* head;
-    nodo* tail;
+    node* head;
+    node* tail;
+    node* current;
     int size;
 
 public:
     LinkedList();
     ~LinkedList();
 
-    nodo* getHead() const;
-    nodo* getTail() const;
+    node* getHead() const;
+    void setHead(node* head);
+    node* getTail() const;
+    void setTail(node* tail);
+    node* getCurrent() const;
+    void setCurrent(node* current);
     int getSize() const;
+
     bool isEmpty() const;
-    void insertAtBeginning(Cancion* value);
-    void insertAtEnd(Cancion* value);
-    void insertBefore(nodo* nextNode, Cancion* value);
+    void insertFirst(Cancion* element);
+    void insertLast(Cancion* element);
+    void removeFirst();
+    void removeLast();
+    void insertBefore(node* nextNode, Cancion* value);
     void removeFromBeginning();
-    void removeFromEnd();
-    bool search(Cancion* value) const;
 };
 
 #endif // LINKED_LIST_H

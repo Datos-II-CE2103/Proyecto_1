@@ -1,48 +1,48 @@
 #include "doubly_linked_list.h"
 #include <iostream>
 
-LinkedList::LinkedList() : head(nullptr), tail(nullptr), current(nullptr), size(0) {}
+DoublyLinkedList::DoublyLinkedList() : head(nullptr), tail(nullptr), current(nullptr), size(0) {}
 
-LinkedList::~LinkedList() {
+DoublyLinkedList::~DoublyLinkedList() {
     while (!isEmpty()) {
         removeFirst();
     }
 }
 
-nodo* LinkedList::getHead() const {
+node* DoublyLinkedList::getHead() const {
     return head;
 }
 
-void LinkedList::setHead(nodo* head) {
-    this->head = head;
+void DoublyLinkedList::setHead(node* headPtr) {
+    this->head = headPtr;
 }
 
-nodo* LinkedList::getTail() const {
+node* DoublyLinkedList::getTail() const {
     return tail;
 }
 
-void LinkedList::setTail(nodo* tail) {
-    this->tail = tail;
+void DoublyLinkedList::setTail(node* tailPtr) {
+    this->tail = tailPtr;
 }
 
-nodo* LinkedList::getCurrent() const {
+node* DoublyLinkedList::getCurrent() const {
     return current;
 }
 
-void LinkedList::setCurrent(nodo* current) {
-    this->current = current;
+void DoublyLinkedList::setCurrent(node* currentPtr) {
+    this->current = currentPtr;
 }
 
-int LinkedList::getSize() const {
+int DoublyLinkedList::getSize() const {
     return size;
 }
 
-bool LinkedList::isEmpty() const {
+bool DoublyLinkedList::isEmpty() const {
     return (head == nullptr);
 }
 
-void LinkedList::insertFirst(Cancion* element) {
-    nodo* newNode = new nodo(element);
+void DoublyLinkedList::insertFirst(Cancion* element) {
+    node* newNode = new node(element);
 
     if (isEmpty()) {
         head = tail = newNode;
@@ -55,8 +55,8 @@ void LinkedList::insertFirst(Cancion* element) {
     size++;
 }
 
-void LinkedList::insertLast(Cancion* element) {
-    nodo* newNode = new nodo(element);
+void DoublyLinkedList::insertLast(Cancion* element) {
+    node* newNode = new node(element);
 
     if (isEmpty()) {
         head = tail = newNode;
@@ -69,9 +69,9 @@ void LinkedList::insertLast(Cancion* element) {
     size++;
 }
 
-void LinkedList::removeFirst() {
+void DoublyLinkedList::removeFirst() {
     if (!isEmpty()) {
-        nodo* temp = head;
+        node* temp = head;
         head = head->getNextNode();
         if (head) {
             head->setPrevNode(nullptr);
@@ -81,9 +81,9 @@ void LinkedList::removeFirst() {
     }
 }
 
-void LinkedList::removeLast() {
+void DoublyLinkedList::removeLast() {
     if (!isEmpty()) {
-        nodo* temp = tail;
+        node* temp = tail;
         tail = tail->getPrevNode();
         if (tail) {
             tail->setNextNode(nullptr);

@@ -3,58 +3,24 @@
 
 #include "cancion.h"
 
-class nodo {
+class node {
 private:
     Cancion* valueNode;
-    nodo* nextNode;
-    nodo* prevNode;
+    node* nextNode;
+    node* prevNode;
 
 public:
-    ~nodo();
-    nodo(){
-        valueNode = nullptr;
-        nextNode = nullptr;
-        prevNode = nullptr;
-    }
-    nodo(Cancion* newValue, nodo *n, nodo *p)
-    {
-        valueNode = newValue;
-        nextNode = n;
-        prevNode = p;
-    }
-    nodo(Cancion* newValue)
-    {
-        valueNode = newValue;
-        nextNode = nullptr;
-        prevNode = nullptr;
-    }
+    node();
+    node(Cancion* newValue, node *n, node *p);
+    node(Cancion* newValue);
 
-    Cancion* getValueNode() const {
-        return valueNode;
-    }
-
-    nodo *getNextNode() const {
-        return nextNode;
-    }
-
-    nodo *getPrevNode() const {
-        return prevNode;
-    }
-
-    void setValueNode(Cancion* value) {
-        valueNode = value;
-    }
-
-    void setNextNode(nodo *next) {
-        nextNode = next;
-    }
-
-    void setPrevNode(nodo *prev) {
-        prevNode = prev;
-    }
+    Cancion* getValueNode() const;
+    node* getNextNode() const;
+    node* getPrevNode() const;
+    void setValueNode(Cancion* value);
+    void setNextNode(node *next);
+    void setPrevNode(node *prev);
+    ~node();
 };
-
-nodo::~nodo() {
-}
 
 #endif
