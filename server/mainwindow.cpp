@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
     QString home=QDir::homePath();
-    player->setSource(QUrl::fromLocalFile(home+"/Music/NinaBonita.mp3"));
+    player->setSource(QUrl::fromLocalFile(home+"/Music/file.mp3"));
     cout<<player->hasAudio();
     audioOutput->setVolume(50);
 

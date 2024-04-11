@@ -9,9 +9,11 @@ build = "build.rs"
 
 [dependencies]
 slint = "1.4"
-rust-ini = "0.20.0"
+rust-ini = "0.21.0"
 json= "0.12.4"
 futures = "0.3"
+signals2 = "*"
+
 
 
 [build-dependencies]
