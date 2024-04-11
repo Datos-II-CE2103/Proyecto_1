@@ -19,6 +19,7 @@ public:
     explicit MyTcpServer(QObject *parent = 0);
 
 signals:
+    void nuevaConex();
 
 public slots:
     void newConnection();

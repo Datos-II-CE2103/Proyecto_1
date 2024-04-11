@@ -35,10 +35,11 @@ MyTcpServer::MyTcpServer(QObject *parent) :
 
 void MyTcpServer::newConnection()
 {
-    // need to grab the socket
+               this->nuevaConex();
+    //need to grab the socket
     QTcpSocket *socket = server->nextPendingConnection();
-
-    socket->write("Hello client\r\n");
+    LOG(INFO) << "Nueva conxeion entrante al servidor desde un cliente";
+    socket->write("Hello!\r\n");
     socket->flush();
 
     socket->waitForBytesWritten(3000);

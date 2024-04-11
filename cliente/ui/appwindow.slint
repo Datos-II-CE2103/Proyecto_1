@@ -23,6 +23,8 @@ export component AppWindow inherits Window {
     always-on-top: true;
     in-out property <int> counter: 42;
     in-out property <string> estado: "";
+    in-out property <bool> visibilidad: true;
+
     callback request-increase-value();
     VerticalLayout {
         alignment: center;
@@ -33,8 +35,8 @@ export component AppWindow inherits Window {
                 width: 30%;
                 background: #FFFFFF;
                 border-radius: 5px;
+                visible:root.visibilidad;
                 VerticalBox {
-                    
                     alignment: stretch;
                     Text {
                         horizontal-alignment: center;

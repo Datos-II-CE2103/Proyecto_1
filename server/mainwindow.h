@@ -6,9 +6,8 @@
 #include <QTextEdit>
 #include <QListWidget>
 #include <QMediaPlayer>
-#include <QTcpSocket>
+#include "tcp/tcpserver.h"
 #include <QThread>
-#include <QTcpServer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,16 +34,13 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QPushButton* playBtn;
-    QPushButton* pauseBtn;
-    QTextEdit* infoTxt;
-    QTextEdit* memoryTxt;
+    QPushButton *playBtn,*pauseBtn;
+    QTextEdit *infoTxt, *memoryTxt;
     QListWidget* listArt;
     QMediaPlayer *player;
     QAudioOutput *audioOutput;
+    MyTcpServer *socketEscucha;
     QThread *myThread;
-    QTcpServer *socketEscucha;
-    QTcpSocket *socketRespuesta;
 };
 
 #endif // MAINWINDOW_H
