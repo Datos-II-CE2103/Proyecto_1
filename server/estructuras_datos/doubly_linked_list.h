@@ -1,10 +1,10 @@
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef DOUBLY_LINKED_LIST_H
+#define DOUBLY_LINKED_LIST_H
 
 #include "node.h"
 #include <iostream>
 
-class LinkedList {
+class DoublyLinkedList {
 private:
     node* head;
     node* tail;
@@ -12,15 +12,15 @@ private:
     int size;
 
 public:
-    LinkedList();
-    ~LinkedList();
+    DoublyLinkedList();
+    ~DoublyLinkedList();
 
     node* getHead() const;
-    void setHead(node* head);
+    void setHead(node* headPtr);
     node* getTail() const;
-    void setTail(node* tail);
+    void setTail(node* tailPtr);
     node* getCurrent() const;
-    void setCurrent(node* current);
+    void setCurrent(node* currentPtr);
     int getSize() const;
 
     bool isEmpty() const;
@@ -28,8 +28,6 @@ public:
     void insertLast(Cancion* element);
     void removeFirst();
     void removeLast();
-    void insertBefore(node* nextNode, Cancion* value);
-    void removeFromBeginning();
 };
 
-#endif // LINKED_LIST_H
+#endif // DOUBLY_LINKED_LIST_H
