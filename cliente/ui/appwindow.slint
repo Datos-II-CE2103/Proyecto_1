@@ -1,4 +1,24 @@
 import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
+
+/**
+ * Componente ButtonUp que representa un botón con un texto y una acción asociada al ser clicado.
+ * Este componente hereda las propiedades y comportamientos de un rectángulo.
+ *
+ * @inherits Rectangle
+ *
+ * @property {string} text - Texto mostrado en el botón.
+ * @callback clicked - Callback que se ejecuta cuando el botón es clicado.
+ *
+ * @style
+ * border-radius: 5px;
+ * background: #0c9c4c;
+ * height: 10%;
+ * width: 5%;
+ *
+ * @state
+ * touch.pressed - Estado que indica si el botón está siendo presionado.
+ * touch.has-hover - Estado que indica si el botón está siendo señalado por el cursor.
+ */
 component ButtonUp inherits Rectangle {
     in-out property text <=> txt.text;
     callback clicked <=> touch.clicked;
@@ -16,6 +36,26 @@ component ButtonUp inherits Rectangle {
 
     touch := TouchArea { }
 }
+
+/**
+ * Componente ButtonDown que representa un botón con un texto y una acción asociada al ser clicado.
+ * Este componente hereda las propiedades y comportamientos de un rectángulo.
+ *
+ * @inherits Rectangle
+ *
+ * @property {string} text - Texto mostrado en el botón.
+ * @callback clicked - Callback que se ejecuta cuando el botón es clicado.
+ *
+ * @style
+ * border-radius: 5px;
+ * background: #9c0c0c;
+ * height: 10%;
+ * width: 5%;
+ *
+ * @state
+ * touch.pressed - Estado que indica si el botón está siendo presionado.
+ * touch.has-hover - Estado que indica si el botón está siendo señalado por el cursor.
+ */
 component ButtonDown inherits Rectangle {
     in-out property text <=> txt.text;
     callback clicked <=> touch.clicked;
@@ -34,6 +74,62 @@ component ButtonDown inherits Rectangle {
     touch := TouchArea { }
 }
 
+/**
+ * Componente AppWindow que representa la ventana principal de la aplicación.
+ * Esta ventana tiene propiedades específicas de diseño y funcionalidades asociadas a eventos.
+ *
+ * @inherits Window
+ *
+ * @style
+ * preferred-width: 1800px;
+ * preferred-height: 900px;
+ * background: #363D4A;
+ * title: "CMP - CLIENTE";
+ * always-on-top: true;
+ *
+ * @property {int} counter - Contador con un valor inicial de 42.
+ * @property {string} estado - Estado actual de la aplicación.
+ * @property {bool} visibilidad - Indica si la ventana es visible o no.
+ * @property {string} nombre_c01 - Nombre de la canción 01.
+ * @property {string} artista_c01 - Artista de la canción 01.
+ * @property {string} guid_c01 - GUID de la canción 01.
+ * @property {string} nombre_c02 - Nombre de la canción 02.
+ * @property {string} artista_c02 - Artista de la canción 02.
+ * @property {string} guid_c02 - GUID de la canción 02.
+ * @property {string} nombre_c03 - Nombre de la canción 03.
+ * @property {string} artista_c03 - Artista de la canción 03.
+ * @property {string} guid_c03 - GUID de la canción 03.
+ * @property {string} nombre_c04 - Nombre de la canción 04.
+ * @property {string} artista_c04 - Artista de la canción 04.
+ * @property {string} guid_c04 - GUID de la canción 04.
+ * @property {string} nombre_c05 - Nombre de la canción 05.
+ * @property {string} artista_c05 - Artista de la canción 05.
+ * @property {string} guid_c05 - GUID de la canción 05.
+ * @property {string} nombre_c06 - Nombre de la canción 06.
+ * @property {string} artista_c06 - Artista de la canción 06.
+ * @property {string} guid_c06 - GUID de la canción 06.
+ * @property {string} nombre_c07 - Nombre de la canción 07.
+ * @property {string} artista_c07 - Artista de la canción 07.
+ * @property {string} guid_c07 - GUID de la canción 07.
+ * @property {string} nombre_c08 - Nombre de la canción 08.
+ * @property {string} artista_c08 - Artista de la canción 08.
+ * @property {string} guid_c08 - GUID de la canción 08.
+ * @property {string} nombre_c09 - Nombre de la canción 09.
+ * @property {string} artista_c09 - Artista de la canción 09.
+ * @property {string} guid_c09 - GUID de la canción 09.
+ * @property {string} nombre_c10 - Nombre de la canción 10.
+ * @property {string} artista_c10 - Artista de la canción 10.
+ * @property {string} guid_c10 - GUID de la canción 10.
+ * @property {string} tempguid - GUID temporal utilizado en ciertas operaciones.
+ *
+ * @callback request-increase-value - Callback que se ejecuta al solicitar el incremento de un valor.
+ * @callback request-vote-up - Callback que se ejecuta al solicitar un voto positivo.
+ * @callback request-vote-down - Callback que se ejecuta al solicitar un voto negativo.
+ *
+ * @state
+ * touch.pressed - Estado que indica si se está presionando un área táctil.
+ * touch.has-hover - Estado que indica si el cursor se encuentra sobre un área táctil.
+ */
 export component AppWindow inherits Window {
     preferred-width: 1800px;
     preferred-height: 900px;
