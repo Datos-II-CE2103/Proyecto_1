@@ -2,10 +2,12 @@
 #include <QObject>
 #include <glog/logging.h>
 #include "../include/json.hpp"
-
+#include <iostream>
 #include <QSettings>
 
 using namespace std;
+using namespace rapidjson;
+
 
 MyTcpServer::MyTcpServer(QObject *parent) :
         QObject(parent)

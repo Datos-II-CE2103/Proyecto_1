@@ -1,20 +1,135 @@
 import { Button, VerticalBox, HorizontalBox } from "std-widgets.slint";
-component Buttonx inherits Rectangle {
+
+/**
+ * Componente ButtonUp que representa un botón con un texto y una acción asociada al ser clicado.
+ * Este componente hereda las propiedades y comportamientos de un rectángulo.
+ *
+ * @inherits Rectangle
+ *
+ * @property {string} text - Texto mostrado en el botón.
+ * @callback clicked - Callback que se ejecuta cuando el botón es clicado.
+ *
+ * @style
+ * border-radius: 5px;
+ * background: #0c9c4c;
+ * height: 10%;
+ * width: 5%;
+ *
+ * @state
+ * touch.pressed - Estado que indica si el botón está siendo presionado.
+ * touch.has-hover - Estado que indica si el botón está siendo señalado por el cursor.
+ */
+component ButtonUp inherits Rectangle {
     in-out property text <=> txt.text;
     callback clicked <=> touch.clicked;
     border-radius: 5px;
-    background: #0c9c4c; //touch.pressed ? #4CACAC  : touch.has-hover ? #50d98e :  #0C9C4C;
-    height: 30%;
-    width: 40%;
+    background: #0c9c4c;
+    //touch.pressed ? #4CACAC  : touch.has-hover ? #50d98e :  #0C9C4C;
+    height: 10%;
+    width: 5%;
     txt := Text {
         font-size: 15px;
         height: 90%;
         width: 60%;
         color: touch.pressed ? #fff : #eee;
     }
+
     touch := TouchArea { }
 }
 
+/**
+ * Componente ButtonDown que representa un botón con un texto y una acción asociada al ser clicado.
+ * Este componente hereda las propiedades y comportamientos de un rectángulo.
+ *
+ * @inherits Rectangle
+ *
+ * @property {string} text - Texto mostrado en el botón.
+ * @callback clicked - Callback que se ejecuta cuando el botón es clicado.
+ *
+ * @style
+ * border-radius: 5px;
+ * background: #9c0c0c;
+ * height: 10%;
+ * width: 5%;
+ *
+ * @state
+ * touch.pressed - Estado que indica si el botón está siendo presionado.
+ * touch.has-hover - Estado que indica si el botón está siendo señalado por el cursor.
+ */
+component ButtonDown inherits Rectangle {
+    in-out property text <=> txt.text;
+    callback clicked <=> touch.clicked;
+    border-radius: 5px;
+    background: #9c0c0c;
+    //touch.pressed ? #4CACAC  : touch.has-hover ? #50d98e :  #0C9C4C;
+    height: 10%;
+    width: 5%;
+    txt := Text {
+        font-size: 15px;
+        height: 90%;
+        width: 60%;
+        color: touch.pressed ? #fff : #eee;
+    }
+
+    touch := TouchArea { }
+}
+
+/**
+ * Componente AppWindow que representa la ventana principal de la aplicación.
+ * Esta ventana tiene propiedades específicas de diseño y funcionalidades asociadas a eventos.
+ *
+ * @inherits Window
+ *
+ * @style
+ * preferred-width: 1800px;
+ * preferred-height: 900px;
+ * background: #363D4A;
+ * title: "CMP - CLIENTE";
+ * always-on-top: true;
+ *
+ * @property {int} counter - Contador con un valor inicial de 42.
+ * @property {string} estado - Estado actual de la aplicación.
+ * @property {bool} visibilidad - Indica si la ventana es visible o no.
+ * @property {string} nombre_c01 - Nombre de la canción 01.
+ * @property {string} artista_c01 - Artista de la canción 01.
+ * @property {string} guid_c01 - GUID de la canción 01.
+ * @property {string} nombre_c02 - Nombre de la canción 02.
+ * @property {string} artista_c02 - Artista de la canción 02.
+ * @property {string} guid_c02 - GUID de la canción 02.
+ * @property {string} nombre_c03 - Nombre de la canción 03.
+ * @property {string} artista_c03 - Artista de la canción 03.
+ * @property {string} guid_c03 - GUID de la canción 03.
+ * @property {string} nombre_c04 - Nombre de la canción 04.
+ * @property {string} artista_c04 - Artista de la canción 04.
+ * @property {string} guid_c04 - GUID de la canción 04.
+ * @property {string} nombre_c05 - Nombre de la canción 05.
+ * @property {string} artista_c05 - Artista de la canción 05.
+ * @property {string} guid_c05 - GUID de la canción 05.
+ * @property {string} nombre_c06 - Nombre de la canción 06.
+ * @property {string} artista_c06 - Artista de la canción 06.
+ * @property {string} guid_c06 - GUID de la canción 06.
+ * @property {string} nombre_c07 - Nombre de la canción 07.
+ * @property {string} artista_c07 - Artista de la canción 07.
+ * @property {string} guid_c07 - GUID de la canción 07.
+ * @property {string} nombre_c08 - Nombre de la canción 08.
+ * @property {string} artista_c08 - Artista de la canción 08.
+ * @property {string} guid_c08 - GUID de la canción 08.
+ * @property {string} nombre_c09 - Nombre de la canción 09.
+ * @property {string} artista_c09 - Artista de la canción 09.
+ * @property {string} guid_c09 - GUID de la canción 09.
+ * @property {string} nombre_c10 - Nombre de la canción 10.
+ * @property {string} artista_c10 - Artista de la canción 10.
+ * @property {string} guid_c10 - GUID de la canción 10.
+ * @property {string} tempguid - GUID temporal utilizado en ciertas operaciones.
+ *
+ * @callback request-increase-value - Callback que se ejecuta al solicitar el incremento de un valor.
+ * @callback request-vote-up - Callback que se ejecuta al solicitar un voto positivo.
+ * @callback request-vote-down - Callback que se ejecuta al solicitar un voto negativo.
+ *
+ * @state
+ * touch.pressed - Estado que indica si se está presionando un área táctil.
+ * touch.has-hover - Estado que indica si el cursor se encuentra sobre un área táctil.
+ */
 export component AppWindow inherits Window {
     preferred-width: 1800px;
     preferred-height: 900px;
@@ -24,41 +139,377 @@ export component AppWindow inherits Window {
     in-out property <int> counter: 42;
     in-out property <string> estado: "";
     in-out property <bool> visibilidad: true;
+    // Definición de propiedades para una lista de 10 objetos
+    in-out property <string> nombre_c01: "nombre_c01";
+    in-out property <string> artista_c01: "artista_c01";
+    in-out property <string> guid_c01: "guid_c01";
+
+    in-out property <string> nombre_c02: "nombre_c02";
+    in-out property <string> artista_c02: "artista_c02";
+    in-out property <string> guid_c02: "guid_c02";
+
+    in-out property <string> nombre_c03: "nombre_c03";
+    in-out property <string> artista_c03: "artista_c03";
+    in-out property <string> guid_c03: "guid_c03";
+
+    in-out property <string> nombre_c04: "nombre_c04";
+    in-out property <string> artista_c04: "artista_c04";
+    in-out property <string> guid_c04: "guid_c04";
+
+    in-out property <string> nombre_c05: "nombre_c05";
+    in-out property <string> artista_c05: "artista_c05";
+    in-out property <string> guid_c05: "guid_c05";
+
+    in-out property <string> nombre_c06: "nombre_c06";
+    in-out property <string> artista_c06: "artista_c06";
+    in-out property <string> guid_c06: "guid_c06";
+
+    in-out property <string> nombre_c07: "nombre_c07";
+    in-out property <string> artista_c07: "artista_c07";
+    in-out property <string> guid_c07: "guid_c07";
+
+    in-out property <string> nombre_c08: "nombre_c08";
+    in-out property <string> artista_c08: "artista_c08";
+    in-out property <string> guid_c08: "guid_c08";
+
+    in-out property <string> nombre_c09: "nombre_c09";
+    in-out property <string> artista_c09: "artista_c09";
+    in-out property <string> guid_c09: "guid_c09";
+
+    in-out property <string> nombre_c10: "nombre_c10";
+    in-out property <string> artista_c10: "artista_c10";
+    in-out property <string> guid_c10: "guid_c10";
+
+    in-out property <string> tempguid: "";
 
     callback request-increase-value();
+    callback request-vote-up();
+    callback request-vote-down();
+
+
     VerticalLayout {
         alignment: center;
         HorizontalLayout {
             alignment: center;
-            popup:=Rectangle{
-                height: 30%;
-                width: 30%;
+            listamusica := Rectangle {
+                height: 95%;
+                width: 95%;
                 background: #FFFFFF;
                 border-radius: 5px;
-                visible:root.visibilidad;
-                VerticalBox {
-                    alignment: stretch;
-                    Text {
-                        horizontal-alignment: center;
-                        font-size: 25px;
-                        text: "NO HAY CONEXION";
-                        height: 30%;
-                    }
-                    HorizontalBox{
-                        alignment: center;
-                        Buttonx {
-                        text: "Estado: \{root.estado}";
-                         clicked => {
-                            root.request-increase-value();
-                            if (root.estado=="connected"){
-                                popup.visible=false;
+                visible: !root.visibilidad;
+                VerticalLayout {
+                    alignment: LayoutAlignment.start;
+                    HorizontalBox {
+                        cancion01 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c01;
+                                }
+                                Text {
+                                    text: root.nombre_c01;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c01;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c01;
+                                        root.request-vote-down();
+                                     }
+                                }
                             }
-                         }
-                    }}
-                    
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion02 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c02;
+                                }
+                                Text {
+                                    text: root.nombre_c02;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c02;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c02;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion03 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c03;
+                                }
+                                Text {
+                                    text: root.nombre_c03;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c03;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c03;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion04 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c04;
+                                }
+                                Text {
+                                    text: root.nombre_c04;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c04;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c04;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion05 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c05;
+                                }
+                                Text {
+                                    text: root.nombre_c05;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c05;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c05;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion06 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c06;
+                                }
+                                Text {
+                                    text: root.nombre_c06;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c06;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c06;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion07 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c07;
+                                }
+                                Text {
+                                    text: root.nombre_c07;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c07;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c07;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion08 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c08;
+                                }
+                                Text {
+                                    text: root.nombre_c08;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c08;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c08;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion09 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c09;
+                                }
+                                Text {
+                                    text: root.nombre_c09;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c09;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c09;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
+
+                    HorizontalBox {
+                        cancion10 := Rectangle {
+                            height: 10%;
+                            width: 95%;
+                            HorizontalLayout {
+                                alignment: LayoutAlignment.space-around;
+                                Text {
+                                    text: root.nombre_c10;
+                                }
+                                Text {
+                                    text: root.nombre_c10;
+                                }
+                                ButtonUp {
+                                    text: "+";
+                                    clicked => {
+                                        root.tempguid=guid_c10;
+                                        root.request-vote-up();
+                                     }
+    
+                                }
+                                ButtonDown {
+                                    text: "-";
+                                    clicked => {
+                                        root.tempguid=guid_c10;
+                                        root.request-vote-down();
+                                     }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
-
