@@ -43,6 +43,7 @@ private:
     MyTcpServer *socketEscucha;
     QThread *myThread;
     DoublyLinkedList listaCanciones;
+    bool isPaused;
 };
 
 #endif // MAINWINDOW_H

@@ -51,17 +51,18 @@ MainWindow::MainWindow(QWidget *parent)
     player = new QMediaPlayer;
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
-    QString home=QDir::homePath();
-    //player->setSource(QUrl::fromLocalFile(home+"/Music/file.mp3"));
     cout<<player->hasAudio();
     audioOutput->setVolume(50);
 
     playBtn = ui->playBtn;
+    pauseBtn = ui->pauseBtn;
 
     infoTxt = ui->infoTxt;
     infoTxt->setText("Nombre Canción: \nNombre Artista: \nNombre Álbum: \nGénero: \nUp-Votes: \nDown-Votes: ");
 
     memoryTxt=ui->memoryTxt;
+
+    bool isPaused = false;
 
     unsigned long long memory_used = getMemoryUsage();
 
@@ -77,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(playBtn, &QPushButton::clicked, this, &MainWindow::handlePlayBtn);
     connect(socketEscucha, SIGNAL(nuevaConex()), this, SLOT(handleTcpConnections()));
+    connect(pauseBtn, &QPushButton::clicked, this, &MainWindow::handlePauseBtn);
 }
 
 void MainWindow::handlePlayBtn() {
@@ -108,8 +110,14 @@ void MainWindow::handlePlayBtn() {
 }
 
 void MainWindow::handlePauseBtn() {
-    player->pause();
-    std::cout << "Pause" << std::endl;
+    if (!isPaused){
+        player->pause();
+        isPaused= true;
+    }
+    else{
+        player->play();
+        isPaused= false;
+    }
 }
 void MainWindow::handleInfoText() {
     infoTxt->setText("Hola");
