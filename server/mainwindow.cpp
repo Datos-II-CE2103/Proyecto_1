@@ -11,6 +11,7 @@
 #include "estructuras_datos/doubly_linked_list.h"
 #include "estructuras_datos/cancion.h"
 #include <filesystem>
+#include <glog/logging.h>
 
 using namespace std;
 
@@ -94,22 +95,26 @@ void MainWindow::handlePlayBtn() {
 
     node* firstNode = listaCanciones.getHead();
 
-    if (firstNode && !isPaused) {
-        Cancion* primeraCancion = firstNode->getValueNode();
+    if (firstNode){
+        if (!isPaused) {
+            Cancion* primeraCancion = firstNode->getValueNode();
 
-        QSettings carpetaMusica("../settings/server.ini", QSettings::Format::IniFormat);
-        QString rutaMusica = carpetaMusica.value("rutas/rutabibliotecamusical").toString();
-        std::string archivoMP3 = primeraCancion->getArchivoMP3();
-        QString rutaCompleta = rutaMusica + "/" + QString::fromStdString(archivoMP3);
+            QSettings carpetaMusica("../settings/server.ini", QSettings::Format::IniFormat);
+            QString rutaMusica = carpetaMusica.value("rutas/rutabibliotecamusical").toString();
+            std::string archivoMP3 = primeraCancion->getArchivoMP3();
+            QString rutaCompleta = rutaMusica + "/" + QString::fromStdString(archivoMP3);
 
-        player->setSource(QUrl::fromLocalFile(rutaCompleta));
-        player->play();
+            player->setSource(QUrl::fromLocalFile(rutaCompleta));
+            player->play();
 
-        currentSong = primeraCancion;
-    }
-    else{
-        player->play();
-        isPaused=false;
+            currentSong = primeraCancion;
+        }
+        else{
+            player->play();
+            isPaused=false;
+        }
+    } else {
+        LOG(ERROR) << "No hay una canción que esté primera";
     }
 }
 
@@ -124,44 +129,24 @@ void MainWindow::handleNextBtn() {
 
     node* currentNode = listaCanciones.getCurrent();
 
-    if (!currentNode) {
+    if (currentNode && currentNode->getNextNode()){
+        listaCanciones.moveToNext(currentNode);
+        playCurrentSong();
+    } else {
+        LOG(ERROR) << "No hay una canción siguiente disponible";
         return;
     }
-    listaCanciones.moveToNext(currentNode);
-    Cancion* currentSong = currentNode->getValueNode();
-    //currentNode->getValueNode()->imprimirInfo();
-
-    QSettings carpetaMusica("../settings/server.ini", QSettings::Format::IniFormat);
-    QString rutaMusica = carpetaMusica.value("rutas/rutabibliotecamusical").toString();
-    std::string archivoMP3 = currentSong->getArchivoMP3();
-    QString rutaCompleta = rutaMusica + "/" + QString::fromStdString(archivoMP3);
-
-    player->setSource(QUrl::fromLocalFile(rutaCompleta));
-    player->play();
-
-    this->currentSong = currentSong;
-
-    currentSong->imprimirInfo();
 }
 void MainWindow::handlePrevBtn() {
     node* currentNode = listaCanciones.getCurrent();
-    if (!currentNode){
+
+    if(currentNode && currentNode->getPrevNode()){
+        listaCanciones.moveToPrev(currentNode);
+        playCurrentSong();
+    } else{
+        LOG(ERROR) << "No hay una canción anterior disponible";
         return;
     }
-    listaCanciones.moveToPrev(currentNode);
-    Cancion* currentSong = currentNode->getValueNode();
-
-    QSettings carpetaMusica("../settings/server.ini", QSettings::Format::IniFormat);
-    QString rutaMusica = carpetaMusica.value("rutas/rutabibliotecamusical").toString();
-    std::string archivoMP3 = currentSong->getArchivoMP3();
-    QString rutaCompleta = rutaMusica + "/" + QString::fromStdString(archivoMP3);
-
-    player->setSource(QUrl::fromLocalFile(rutaCompleta));
-    player->play();
-
-    this->currentSong = currentSong;
-
-    currentSong->imprimirInfo();
 }
 void MainWindow::updateInfoText() {
     if (currentSong) {
@@ -171,6 +156,27 @@ void MainWindow::updateInfoText() {
                          + "Género: " + QString::fromStdString(currentSong->getGenero()) + "\n"
                          + "Up-Votes: " + QString::number(currentSong->getUpVotes()) + "\n"
                          + "Down-Votes: " + QString::number(currentSong->getDownVotes()));
+    }
+}
+void MainWindow::playCurrentSong(){
+    node* currentNode = listaCanciones.getCurrent();
+    if (currentNode){
+        Cancion* currentSong = currentNode->getValueNode();
+
+        QSettings carpetaMusica("../settings/server.ini", QSettings::Format::IniFormat);
+        QString rutaMusica = carpetaMusica.value("rutas/rutabibliotecamusical").toString();
+        std::string archivoMP3 = currentSong->getArchivoMP3();
+        QString rutaCompleta = rutaMusica + "/" + QString::fromStdString(archivoMP3);
+
+        player->setSource(QUrl::fromLocalFile(rutaCompleta));
+        player->play();
+
+        this->currentSong = currentSong;
+
+        currentSong->imprimirInfo();
+    } else {
+        LOG(ERROR) << "No se pudo obtener la canción actual";
+        return;
     }
 }
 void MainWindow::startTcp() {

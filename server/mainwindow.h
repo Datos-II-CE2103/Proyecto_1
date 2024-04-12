@@ -35,6 +35,7 @@ private slots:
     void startTcp();
     void handleTcpConnections();
     void updateInfoText();
+    void playCurrentSong();
 
 private:
     Ui::MainWindow *ui;
@@ -47,7 +48,6 @@ private:
     QThread *myThread;
     DoublyLinkedList listaCanciones;
     bool isPaused;
-    QString rutaMusica;
     Cancion *currentSong;
 
 };
