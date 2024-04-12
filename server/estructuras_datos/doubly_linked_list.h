@@ -28,6 +28,12 @@ public:
     void insertLast(Cancion* element);
     void removeFirst();
     void removeLast();
+
+    void moveToNext(node*& currentNode);
+    void moveToPrev(node*& currentNode);
+    void moveToHead(node*& currentNode);
+
+    void printAllSongs() const;
 };
 
 #endif // DOUBLY_LINKED_LIST_H

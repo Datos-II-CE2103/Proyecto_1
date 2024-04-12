@@ -9,7 +9,6 @@ void Cancion::setTagsFromMP3(const std::string& filePath) {
     if (!f.isNull() && f.tag()) {
         TagLib::Tag *tag = f.tag();
 
-        // Actualiza los atributos de la canción con los tags del archivo de música
         this->setNombre(tag->title().toCString(true));
         this->setArtista(tag->artist().toCString(true));
         this->setAlbum(tag->album().toCString(true));
@@ -21,7 +20,22 @@ void Cancion::setTagsFromMP3(const std::string& filePath) {
     }
 }
 
-Cancion::Cancion():upVotes(0), downVotes(0) {}
+Cancion::Cancion():upVotes(0), downVotes(0) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 15);
+
+    const char hex_chars[] = "0123456789ABCDEF";
+    const int length = 32;
+    id.reserve(length);
+    for (int i = 0; i < length; ++i) {
+        if (i == 8 || i == 12 || i == 16 || i == 20) {
+            id += '-';
+        } else {
+            id += hex_chars[dis(gen)];
+        }
+    }
+}
 
 Cancion::Cancion(const std::string& nombre, const std::string& artista, const std::string& album,
                  const std::string& genero, const std::string& archivoMP3)
@@ -112,4 +126,7 @@ void Cancion::imprimirInfo() const {
     std::cout << "Up-votes: " << upVotes << std::endl;
     std::cout << "Down-votes: " << downVotes << std::endl;
     std::cout << "Archivo MP3: " << archivoMP3 << std::endl;
+}
+
+Cancion::~Cancion(){
 }

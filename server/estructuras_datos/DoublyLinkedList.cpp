@@ -92,3 +92,39 @@ void DoublyLinkedList::removeLast() {
         size--;
     }
 }
+
+void DoublyLinkedList::moveToNext(node*& currentNode) {
+    if (currentNode->getNextNode() != nullptr) {
+        currentNode = currentNode->getNextNode();
+    } else {
+        currentNode = getHead();
+    }
+}
+
+void DoublyLinkedList::moveToPrev(node*& currentNode){
+    if (currentNode->getPrevNode() != nullptr){
+        currentNode = currentNode->getPrevNode();
+    } else {
+        currentNode = getTail();
+    }
+}
+
+void DoublyLinkedList::moveToHead(node*& currentNode) {
+    if (currentNode != getHead()) {
+        node* temp = getHead();
+        while (temp->getNextNode() != currentNode) {
+            temp = temp->getNextNode();
+        }
+        temp->setNextNode(currentNode->getNextNode());
+        currentNode->setNextNode(getHead());
+        setHead(currentNode);
+    }
+}
+
+void DoublyLinkedList::printAllSongs() const {
+    node* temp = head;
+    while (temp != nullptr) {
+        std::cout << "Nombre Canción: " << temp->getValueNode()->getArchivoMP3() << std::endl;
+        temp = temp->getNextNode();
+    }
+}
