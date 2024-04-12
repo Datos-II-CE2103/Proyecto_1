@@ -10,7 +10,8 @@ use std::thread;
 use std::time::Duration;
 use bytes::Bytes;
 use json::{JsonValue, value};
-
+use ini::Ini;
+extern crate ini;
 
 macro_rules! attempt { // `try` is a reserved keyword
    (@recurse ($a:expr) { } catch ($e:ident) $b:block) => {
@@ -29,12 +30,23 @@ fn main() -> Result<(), slint::PlatformError> {
     let ui_clone=ui.as_weak();
     let (tx, rx) = mpsc::channel();
 
+
+    let conf = Ini::load_from_file("../cliente/settings/cliente.ini").unwrap();
+
+    let section = conf.section(Some("Tcpsettings")).unwrap();
+    let direccion = section.get("address").unwrap();
+    let puerto = section.get("port").unwrap();
+    let segundos = section.get("seconds").unwrap();
+    let milisegundos=segundos.to_string();
+
+    let servidor= direccion.to_owned() +":"+puerto;
+
     let _tcpthread=
         thread::Builder::new().name("threadtcp".to_string()).spawn(move||{
 
         loop {
-            thread::sleep(Duration::from_millis(2000));
-            match TcpStream::connect("localhost:8085") {
+            thread::sleep(Duration::from_millis(milisegundos.clone().parse().unwrap()));
+            match TcpStream::connect(servidor.clone().to_string()) {
                 Ok(mut stream) => {
                     println!("Successfully connected to server in port 8085");
 
