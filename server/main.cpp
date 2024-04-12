@@ -19,6 +19,9 @@ void printDir(){
 int main(int argc, char *argv[])
 {
     google::SetLogDestination(google::GLOG_INFO,"../log/" );
+    google::SetLogDestination(google::GLOG_ERROR,"../log/" );
+    google::SetLogDestination(google::GLOG_FATAL,"../log/" );
+    google::SetLogDestination(google::GLOG_FATAL,"../log/" );
     google::InitGoogleLogging(argv[0]);
     QApplication a(argc, argv);
 

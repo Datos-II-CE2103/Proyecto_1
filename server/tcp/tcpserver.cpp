@@ -1,10 +1,15 @@
 #include "tcpserver.h"
 #include <QObject>
 #include <glog/logging.h>
-
+#include "../include/rapidjson/document.h"
+#include "../include/rapidjson/writer.h"
+#include "../include/rapidjson/stringbuffer.h"
+#include <iostream>
 #include <QSettings>
 
 using namespace std;
+using namespace rapidjson;
+
 
 MyTcpServer::MyTcpServer(QObject *parent) :
         QObject(parent)
@@ -39,7 +44,21 @@ void MyTcpServer::newConnection()
     //need to grab the socket
     QTcpSocket *socket = server->nextPendingConnection();
     LOG(INFO) << "Nueva conxeion entrante al servidor desde un cliente";
-    socket->write("Hello!\r\n");
+
+    const char* json = "{\"status\":\"ok\",\"stars\":10}";
+    rapidjson::Document d;
+    d.Parse(json);
+
+    // 2. Modify it by DOM.
+    rapidjson::Value& s = d["stars"];
+    s.SetInt(s.GetInt() + 1);
+
+    // 3. Stringify the DOM
+    rapidjson::StringBuffer buffer;
+    Writer<rapidjson::StringBuffer> writer(buffer);
+    d.Accept(writer);
+
+    socket->write(buffer.GetString());
     socket->flush();
 
     socket->waitForBytesWritten(3000);

@@ -81,7 +81,7 @@ void MainWindow::startTcp() {
     myThread->start();
 }
 void MainWindow::handleTcpConnections() {
-            player->play();
+            //player->play();
 }
 
 MainWindow::~MainWindow()
