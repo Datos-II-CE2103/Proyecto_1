@@ -45,8 +45,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
     info!("Ajustes ini cargados");
 
-    let _tcpthread=
-        thread::Builder::new().name("threadtcp".to_string()).spawn(move||{
+    let _tcpthread= thread::Builder::new().name("threadtcp".to_string()).spawn(move||{
         let mut datos_json=String::new();
         loop {
             thread::sleep(Duration::from_millis(milisegundos.clone().parse().unwrap()));
@@ -206,8 +205,9 @@ fn main() -> Result<(), slint::PlatformError> {
             println!("btn pressed");
 
             let ui = ui_handle.unwrap();
-            ui.get_tempguid();
+            let sguid=ui.get_tempguid().to_string();
 
+            voteup(sguid);
             info!("vote up echo");
         }
     });
@@ -215,10 +215,69 @@ fn main() -> Result<(), slint::PlatformError> {
         let ui_handle = ui.as_weak();
         move || {
             println!("btn pressed");
+
             let ui = ui_handle.unwrap();
-            ui.set_estado("connected".into());
+            let sguid=ui.get_tempguid().to_string();
+
+            votedown(sguid);
+            info!("vote up echo");
         }
     });
 
     ui.run()
+}
+
+fn votedown(song_guid:String) {
+    let conf = Ini::load_from_file("../cliente/settings/cliente.ini").unwrap();
+    let section = conf.section(Some("Tcpsettings")).unwrap();
+    let direccion = section.get("address").unwrap();
+    let puerto = section.get("port").unwrap();
+    let servidor= direccion.to_owned() +":"+puerto;
+
+            match TcpStream::connect(servidor.clone().to_string()) {
+                Ok(mut stream) => {
+                    println!("Successfully connected to server in port 8085");
+
+                    let mut parsed = json::parse(r#"
+                    {
+                        "command": "votedown"
+                        "id":"id"
+                    }
+                    "#).unwrap();
+                    parsed["id"] = JsonValue::from(song_guid);
+                    let mensaje = parsed.to_string();
+                    let msg = mensaje.as_bytes();
+
+                    stream.write(&*msg).unwrap();
+                }
+                _ => {}
+            }
+            println!("Terminated.");
+}
+fn voteup(song_guid:String) {
+    let conf = Ini::load_from_file("../cliente/settings/cliente.ini").unwrap();
+    let section = conf.section(Some("Tcpsettings")).unwrap();
+    let direccion = section.get("address").unwrap();
+    let puerto = section.get("port").unwrap();
+    let servidor= direccion.to_owned() +":"+puerto;
+
+    match TcpStream::connect(servidor.clone().to_string()) {
+        Ok(mut stream) => {
+            println!("Successfully connected to server in port 8085");
+
+            let mut parsed = json::parse(r#"
+                    {
+                        "command": "voteup"
+                        "id":"id"
+                    }
+                    "#).unwrap();
+            parsed["id"] = JsonValue::from(song_guid);
+            let mensaje = parsed.to_string();
+            let msg = mensaje.as_bytes();
+
+            stream.write(&*msg).unwrap();
+        }
+        _ => {}
+    }
+    println!("Terminated.");
 }
