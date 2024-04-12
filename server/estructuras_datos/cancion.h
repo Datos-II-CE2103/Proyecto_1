@@ -16,6 +16,9 @@ private:
     std::string archivoMP3;
 
 public:
+
+    Cancion();
+
     Cancion(const std::string& nombre, const std::string& artista, const std::string& album,
             const std::string& genero, const std::string& archivoMP3);
 
@@ -50,6 +53,8 @@ public:
     void setArchivoMP3(const std::string& archivoMP3);
 
     void imprimirInfo() const;
+
+    void setTagsFromMP3(const std::string& filePath);
 };
 
 #endif // CANCION_H

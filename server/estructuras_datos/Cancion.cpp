@@ -1,6 +1,27 @@
 #include "cancion.h"
 #include <iostream>
 #include <random>
+#include <fileref.h>
+
+void Cancion::setTagsFromMP3(const std::string& filePath) {
+    TagLib::FileRef f(filePath.c_str());
+
+    if (!f.isNull() && f.tag()) {
+        TagLib::Tag *tag = f.tag();
+
+        // Actualiza los atributos de la canción con los tags del archivo de música
+        this->setNombre(tag->title().toCString(true));
+        this->setArtista(tag->artist().toCString(true));
+        this->setAlbum(tag->album().toCString(true));
+        this->setGenero(tag->genre().toCString(true));
+        this->setArchivoMP3(tag->title().toCString(true));
+
+    } else {
+        std::cerr << "Error al abrir el archivo MP3 o no se encontraron tags." << std::endl;
+    }
+}
+
+Cancion::Cancion():upVotes(0), downVotes(0) {}
 
 Cancion::Cancion(const std::string& nombre, const std::string& artista, const std::string& album,
                  const std::string& genero, const std::string& archivoMP3)
@@ -79,7 +100,7 @@ std::string Cancion::getArchivoMP3() const {
 }
 
 void Cancion::setArchivoMP3(const std::string& archivoMP3) {
-    this->archivoMP3 = archivoMP3;
+    this->archivoMP3 = archivoMP3+".mp3";
 }
 
 void Cancion::imprimirInfo() const {

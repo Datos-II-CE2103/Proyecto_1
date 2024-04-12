@@ -8,6 +8,7 @@
 #include <QMediaPlayer>
 #include "tcp/tcpserver.h"
 #include <QThread>
+#include "estructuras_datos/doubly_linked_list.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -41,6 +42,7 @@ private:
     QAudioOutput *audioOutput;
     MyTcpServer *socketEscucha;
     QThread *myThread;
+    DoublyLinkedList listaCanciones;
 };
 
 #endif // MAINWINDOW_H
