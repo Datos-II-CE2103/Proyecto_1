@@ -11,7 +11,8 @@ build = "build.rs"
 slint = "1.4"
 rust-ini = "0.21.0"
 json = "0.12.4"
-bytes = "1.6.0"
+glog = "0.1.0"
+log = "0.4.21"
 
 
 

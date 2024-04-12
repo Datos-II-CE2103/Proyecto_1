@@ -8,10 +8,11 @@ use std::str::{from_utf8, from_utf8_mut};
 use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
-use bytes::Bytes;
 use json::{JsonValue, value};
 use ini::Ini;
 extern crate ini;
+use log::*;
+use glog::Flags;
 
 macro_rules! attempt { // `try` is a reserved keyword
    (@recurse ($a:expr) { } catch ($e:ident) $b:block) => {
@@ -30,6 +31,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let ui_clone=ui.as_weak();
     let (tx, rx) = mpsc::channel();
 
+    glog::new().init(Flags::default()).unwrap();
 
     let conf = Ini::load_from_file("../cliente/settings/cliente.ini").unwrap();
 
@@ -40,6 +42,8 @@ fn main() -> Result<(), slint::PlatformError> {
     let milisegundos=segundos.to_string();
 
     let servidor= direccion.to_owned() +":"+puerto;
+
+    info!("Ajustes ini cargados");
 
     let _tcpthread=
         thread::Builder::new().name("threadtcp".to_string()).spawn(move||{
