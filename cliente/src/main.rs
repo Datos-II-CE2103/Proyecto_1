@@ -240,8 +240,8 @@ fn votedown(song_guid:String) {
 
                     let mut parsed = json::parse(r#"
                     {
-                        "command": "votedown"
-                        "id":"id"
+                        "command": "votedown",
+                        "id": "guid"
                     }
                     "#).unwrap();
                     parsed["id"] = JsonValue::from(song_guid);
@@ -252,7 +252,7 @@ fn votedown(song_guid:String) {
                 }
                 _ => {}
             }
-            println!("Terminated.");
+            println!("Voto enviado.");
 }
 fn voteup(song_guid:String) {
     let conf = Ini::load_from_file("../cliente/settings/cliente.ini").unwrap();
@@ -267,8 +267,8 @@ fn voteup(song_guid:String) {
 
             let mut parsed = json::parse(r#"
                     {
-                        "command": "voteup"
-                        "id":"id"
+                        "command": "voteup",
+                        "id": "guid"
                     }
                     "#).unwrap();
             parsed["id"] = JsonValue::from(song_guid);
@@ -279,5 +279,5 @@ fn voteup(song_guid:String) {
         }
         _ => {}
     }
-    println!("Terminated.");
+    println!("Voto enviado.");
 }
