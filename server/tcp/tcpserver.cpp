@@ -1,9 +1,7 @@
 #include "tcpserver.h"
 #include <QObject>
 #include <glog/logging.h>
-#include "../include/rapidjson/document.h"
-#include "../include/rapidjson/writer.h"
-#include "../include/rapidjson/stringbuffer.h"
+#include "../include/json.hpp"
 #include <iostream>
 #include <QSettings>
 
@@ -14,6 +12,7 @@ using namespace rapidjson;
 MyTcpServer::MyTcpServer(QObject *parent) :
         QObject(parent)
 {
+    comunitario= false;
     server = new QTcpServer(this);
 
     QSettings settings("../settings/server.ini", QSettings::Format::IniFormat);
@@ -40,28 +39,70 @@ MyTcpServer::MyTcpServer(QObject *parent) :
 
 void MyTcpServer::newConnection()
 {
-               this->nuevaConex();
+    this->nuevaConex();
     //need to grab the socket
     QTcpSocket *socket = server->nextPendingConnection();
     LOG(INFO) << "Nueva conxeion entrante al servidor desde un cliente";
+    if(comunitario){
+        const QByteArray &buffer = socket->readAll();
+        QString consulta=QString(buffer);
+        json::JSON Obj = json::JSON::Load(consulta.toStdString());
+        json::JSON respuesta;
+        LinkedList lista=comuityque->getList();
+        node *current = lista.getHead();
+        if(Obj["command"].ToString()=="Get playlist"){
+            respuesta["status"]="ok";
+            respuesta["command"]="Get playlisit";
+            while(current->getNextNode()){
+                json::JSON song;
+                song["id"]=current->getValueNode()->getId();
+                song["song"]=current->getValueNode()->getId();
+                song["guid"]=current->getValueNode()->getId();
+                respuesta["playlist"].append(song);
+                current=current->getNextNode();
+            }
+        }
+        else if(Obj["command"].ToString()=="voteup"){
+            respuesta["status"]="ok";
+            respuesta["command"]="voteup";
+            while(current->getNextNode()){
+                if(current->getValueNode()->getId()==Obj["id"].ToString()){
+                    current->getValueNode()->setUpVotes(current->getValueNode()->getUpVotes()+1);
+                    break;
+                }
+                current=current->getNextNode();
+            }
+        }
+        else if(Obj["command"].ToString()=="votedown"){
+            respuesta["status"]="ok";
+            respuesta["command"]="voteup";
+            while(current->getNextNode()){
+                if(current->getValueNode()->getId()==Obj["id"].ToString()){
+                    current->getValueNode()->setDownVotes(current->getValueNode()->getDownVotes()+1);
+                    break;
+                }
+                current=current->getNextNode();
+            }
+        }
+        socket->write(respuesta.ToString().c_str());
 
-    const char* json = "{\"status\":\"ok\",\"stars\":10}";
-    rapidjson::Document d;
-    d.Parse(json);
+    } else{
+        json::JSON obj;
+        obj["command"]="Get playlist";
+        obj["status"]="no";
+        socket->write(obj.ToString().c_str());
 
-    // 2. Modify it by DOM.
-    rapidjson::Value& s = d["stars"];
-    s.SetInt(s.GetInt() + 1);
-
-    // 3. Stringify the DOM
-    rapidjson::StringBuffer buffer;
-    Writer<rapidjson::StringBuffer> writer(buffer);
-    d.Accept(writer);
-
-    socket->write(buffer.GetString());
+    }
     socket->flush();
 
     socket->waitForBytesWritten(3000);
 
     socket->close();
+}
+void MyTcpServer::communityTog() {
+    this->comunitario=!comunitario;
+}
+
+void MyTcpServer::setComuityque(PriorityQueue *comuityque) {
+    MyTcpServer::comuityque = comuityque;
 }

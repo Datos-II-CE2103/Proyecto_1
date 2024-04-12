@@ -17,6 +17,7 @@ public:
     void remove();
     bool isEmpty() const;
     bool isFull() const;
+    LinkedList getList();
 };
 
 #endif // PRIORITY_QUEUE_H

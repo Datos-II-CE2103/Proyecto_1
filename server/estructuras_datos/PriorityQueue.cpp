@@ -42,3 +42,7 @@ bool PriorityQueue::isEmpty() const {
 bool PriorityQueue::isFull() const {
     return list.getSize() >= maxSize;
 }
+
+LinkedList PriorityQueue::getList() {
+    return LinkedList();
+}

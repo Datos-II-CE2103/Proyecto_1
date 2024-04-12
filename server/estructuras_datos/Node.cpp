@@ -31,5 +31,4 @@ void node::setPrevNode(node *prev) {
 }
 
 node::~node() {
-    // Aquí puedes agregar cualquier limpieza adicional necesaria en la destrucción de un node.
 }
