@@ -8,6 +8,7 @@
 #include <QMediaPlayer>
 #include "tcp/tcpserver.h"
 #include <QThread>
+#include <QCheckBox>
 #include "estructuras_datos/doubly_linked_list.h"
 #include "estructuras_datos/node.h"
 
@@ -36,11 +37,14 @@ private slots:
     void handleTcpConnections();
     void updateInfoText();
     void playCurrentSong();
+    void paginacion();
+    void transferirNodos(QList<Cancion*>& cancionesPaginadas, node* inicio) ;
 
 private:
     Ui::MainWindow *ui;
     QPushButton *playBtn,*pauseBtn, *nextBtn, *prevBtn;
     QTextEdit *infoTxt, *memoryTxt;
+    QCheckBox *togglePaginacion;
     QListWidget* listArt;
     QMediaPlayer *player;
     QAudioOutput *audioOutput;
@@ -48,6 +52,7 @@ private:
     QThread *myThread;
     DoublyLinkedList listaCanciones;
     bool isPaused;
+    bool paginated;
     Cancion *currentSong;
 
     void cargarComunity();

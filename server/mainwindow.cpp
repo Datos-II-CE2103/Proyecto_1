@@ -12,6 +12,7 @@
 #include "estructuras_datos/cancion.h"
 #include <filesystem>
 #include <glog/logging.h>
+#include <QList>
 
 using namespace std;
 
@@ -61,6 +62,8 @@ MainWindow::MainWindow(QWidget *parent)
     nextBtn = ui->nextBtn;
     prevBtn = ui->backBtn;
 
+    togglePaginacion = ui->TogglePaginacion;
+
     infoTxt = ui->infoTxt;
     infoTxt->setText("Nombre Canción: \nNombre Artista: \nNombre Álbum: \nGénero: \nUp-Votes: \nDown-Votes: ");
 
@@ -88,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(nextBtn, &QPushButton::clicked, this, &MainWindow::handleNextBtn);
     connect(prevBtn, &QPushButton::clicked, this, &MainWindow::handlePrevBtn);
     connect(player, &QMediaPlayer::mediaStatusChanged, this, &MainWindow::updateInfoText);
-
+    connect(togglePaginacion, &QCheckBox::stateChanged, this, &MainWindow::paginacion);
     currentSong = nullptr;
 }
 
@@ -181,6 +184,28 @@ void MainWindow::playCurrentSong(){
         return;
     }
 }
+
+void MainWindow::transferirNodos(QList<Cancion*>& cancionesPaginadas, node* inicio) {
+    node* currentNode = inicio;
+    while (currentNode) {
+        cancionesPaginadas.append(currentNode->getValueNode());
+        currentNode = currentNode->getNextNode();
+    }
+}
+
+void MainWindow::paginacion() {
+    if (!paginated) {
+        QList<Cancion*> cancionesPaginadas;
+        transferirNodos(cancionesPaginadas, listaCanciones.getHead());
+                foreach(Cancion* cancion, cancionesPaginadas) {
+                std::cout << cancion->getNombre() << std::endl;
+            }
+        paginated = true;
+    } else {
+        paginated = false;
+    }
+}
+
 void MainWindow::startTcp() {
     myThread= new QThread;
     socketEscucha= new MyTcpServer;
