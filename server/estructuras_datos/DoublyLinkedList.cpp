@@ -95,17 +95,17 @@ void DoublyLinkedList::removeLast() {
 
 void DoublyLinkedList::moveToNext(node*& currentNode) {
     if (currentNode->getNextNode() != nullptr) {
-        currentNode = currentNode->getNextNode();
+        current = currentNode->getNextNode();
     } else {
-        currentNode = getHead();
+        current = getHead();
     }
 }
 
 void DoublyLinkedList::moveToPrev(node*& currentNode){
     if (currentNode->getPrevNode() != nullptr){
-        currentNode = currentNode->getPrevNode();
+        current = currentNode->getPrevNode();
     } else {
-        currentNode = getTail();
+        current = getTail();
     }
 }
 

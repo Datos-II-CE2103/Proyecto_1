@@ -11,6 +11,7 @@
 #include <QSettings>
 #include <QString>
 #include <QDebug>
+#include "../estructuras_datos/PriorityQueue.h"
 
 class MyTcpServer : public QObject
 {
@@ -23,9 +24,14 @@ signals:
 
 public slots:
     void newConnection();
+    void communityTog();
 
 private:
     QTcpServer *server;
+    bool comunitario;
+    PriorityQueue *comuityque;
+public:
+    void setComuityque(PriorityQueue *comuityque);
 };
 
 #endif //TSTQT_TCPSERVER_H

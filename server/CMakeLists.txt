@@ -47,6 +47,7 @@ set(PROJECT_SOURCES
         estructuras_datos/PriorityQueue.cpp
         estructuras_datos/Node.cpp
         estructuras_datos/LinkedList.cpp
+        include/json.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

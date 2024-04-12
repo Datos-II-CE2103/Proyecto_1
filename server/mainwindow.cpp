@@ -77,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Cargar las canciones desde la carpeta de música
     cargarCanciones(listaCanciones);
+    listaCanciones.setCurrent(listaCanciones.getHead());
 
     //listaCanciones.printAllSongs();
     //listaCanciones.getHead()->getValueNode()->imprimirInfo();
@@ -93,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::handlePlayBtn() {
 
-    node* firstNode = listaCanciones.getHead();
+    node* firstNode = listaCanciones.getCurrent();
 
     if (firstNode){
         if (!isPaused) {
@@ -122,7 +123,7 @@ void MainWindow::handlePauseBtn() {
     if (!isPaused){
         player->pause();
         isPaused= true;
-        currentSong = nullptr;
+        //currentSong = nullptr;
     }
 }
 void MainWindow::handleNextBtn() {
@@ -167,7 +168,8 @@ void MainWindow::playCurrentSong(){
         QString rutaMusica = carpetaMusica.value("rutas/rutabibliotecamusical").toString();
         std::string archivoMP3 = currentSong->getArchivoMP3();
         QString rutaCompleta = rutaMusica + "/" + QString::fromStdString(archivoMP3);
-
+        player->stop();
+        cout<<"leggue aquí"<<endl;
         player->setSource(QUrl::fromLocalFile(rutaCompleta));
         player->play();
 
@@ -188,8 +190,18 @@ void MainWindow::startTcp() {
 void MainWindow::handleTcpConnections() {
     player->play();
 }
+void MainWindow::cargarComunity(){
+    PriorityQueue *newQue=new PriorityQueue();
+    node *current = listaCanciones.getCurrent();
+        while (current && current->getNextNode() && !newQue->isFull()){
+            newQue->insert(current->getValueNode());
+            current=current->getNextNode();
+    }
+    socketEscucha->setComuityque(newQue);
+}
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+

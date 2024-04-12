@@ -50,6 +50,7 @@ private:
     bool isPaused;
     Cancion *currentSong;
 
+    void cargarComunity();
 };
 
 #endif // MAINWINDOW_H
