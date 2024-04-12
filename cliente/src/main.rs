@@ -14,18 +14,44 @@ extern crate ini;
 use log::*;
 use glog::Flags;
 
-macro_rules! attempt { // `try` is a reserved keyword
-   (@recurse ($a:expr) { } catch ($e:ident) $b:block) => {
-      if let Err ($e) = $a $b
-   };
-   (@recurse ($a:expr) { $e:expr; $($tail:tt)* } $($handler:tt)*) => {
-      attempt!{@recurse ($a.and_then (|_| $e)) { $($tail)* } $($handler)*}
-   };
-   ({ $e:expr; $($tail:tt)* } $($handler:tt)*) => {
-      attempt!{@recurse ($e) { $($tail)* } $($handler)* }
-   };
+/// Macro `attempt` para realizar intentos de ejecución y manejo de errores de manera concisa.
+///
+/// Esta macro facilita el manejo de errores en Rust mediante un estilo similar al `try-catch` de otros lenguajes.
+/// Se puede usar para encadenar operaciones que pueden fallar y manejar los errores resultantes de manera uniforme.
+///
+/// La macro `attempt` toma una serie de bloques de código, cada uno de los cuales representa una operación que puede fallar.
+/// Si una operación falla, se ejecuta el bloque `catch` asociado.
+/// Se puede especificar un número arbitrario de bloques `catch`.
+/// El bloque `catch` debe ser seguido por un identificador que represente el error capturado.
+/// Cada bloque de código puede contener múltiples expresiones separadas por punto y coma (`;`).
+/// Dentro de cada bloque, se puede usar la palabra clave `try` para realizar operaciones que pueden fallar.
+/// La macro `attempt` devuelve un resultado `Result<(), Error>` que indica si hubo un error durante la ejecución.
+macro_rules! attempt {
+    // Regla para el caso base donde no hay más operaciones que realizar
+    (@recurse ($a:expr) { } catch ($e:ident) $b:block) => {
+        // Maneja el error utilizando el identificador especificado y el bloque proporcionado
+        if let Err($e) = $a $b
+    };
+    // Regla para encadenar una operación con la siguiente y posiblemente manejar un error
+    (@recurse ($a:expr) { $e:expr; $($tail:tt)* } $($handler:tt)*) => {
+        // Encadena la operación actual con la siguiente y continúa el bucle
+        attempt!{@recurse ($a.and_then (|_| $e)) { $($tail)* } $($handler)*}
+    };
+    // Regla de entrada para la macro `attempt`
+    ({ $e:expr; $($tail:tt)* } $($handler:tt)*) => {
+        // Inicia el bucle de encadenamiento de operaciones y manejo de errores
+        attempt!{@recurse ($e) { $($tail)* } $($handler)* }
+    };
 }
 
+/// Función principal que ejecuta la lógica principal de la aplicación.
+///
+/// Esta función configura la interfaz de usuario, establece la comunicación con un servidor TCP,
+/// maneja la recepción y procesamiento de datos del servidor, y actualiza la interfaz de usuario en consecuencia.
+///
+/// # Errores
+///
+/// Devuelve un error de tipo `slint::PlatformError` si ocurre un problema con la plataforma.
 fn main() -> Result<(), slint::PlatformError> {
     let ui = AppWindow::new()?;
     let ui_clone=ui.as_weak();
@@ -227,6 +253,16 @@ fn main() -> Result<(), slint::PlatformError> {
     ui.run()
 }
 
+/// Envia un voto negativo (downvote) al servidor para una canción específica identificada por su GUID.
+///
+/// Esta función lee la configuración del cliente desde un archivo INI, obtiene la dirección y el puerto del servidor TCP
+/// al que se va a conectar, y luego establece una conexión TCP con el servidor.
+/// Una vez conectado, envía un mensaje JSON al servidor indicando el comando "votedown" y el ID de la canción.
+///
+/// # Argumentos
+///
+/// * `song_guid`: El identificador único (GUID) de la canción para la cual se va a enviar el voto negativo.
+///
 fn votedown(song_guid:String) {
     let conf = Ini::load_from_file("../cliente/settings/cliente.ini").unwrap();
     let section = conf.section(Some("Tcpsettings")).unwrap();
@@ -254,6 +290,17 @@ fn votedown(song_guid:String) {
             }
             println!("Voto enviado.");
 }
+
+/// Envia un voto positivo (upvote) al servidor para una canción específica identificada por su GUID.
+///
+/// Esta función lee la configuración del cliente desde un archivo INI, obtiene la dirección y el puerto del servidor TCP
+/// al que se va a conectar, y luego establece una conexión TCP con el servidor.
+/// Una vez conectado, envía un mensaje JSON al servidor indicando el comando "voteup" y el ID de la canción.
+///
+/// # Argumentos
+///
+/// * `song_guid`: El identificador único (GUID) de la canción para la cual se va a enviar el voto positivo.
+///
 fn voteup(song_guid:String) {
     let conf = Ini::load_from_file("../cliente/settings/cliente.ini").unwrap();
     let section = conf.section(Some("Tcpsettings")).unwrap();
