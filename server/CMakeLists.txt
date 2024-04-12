@@ -47,6 +47,9 @@ set(PROJECT_SOURCES
         estructuras_datos/PriorityQueue.cpp
         estructuras_datos/Node.cpp
         estructuras_datos/LinkedList.cpp
+        Paginacion/ILista.h
+        Paginacion/ListaPaginada.cpp
+        Paginacion/ListaPaginada.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
