@@ -1,16 +1,16 @@
 slint::include_modules!();
 use std::io::{Read, Write};
-use std::net::{TcpListener, TcpStream};
+use std::net::{TcpStream};
 use std::error::Error;
 use std::ops::Index;
-use std::os::unix::raw::gid_t;
-use std::str::from_utf8;
+use std::io::{BufRead};
+use std::str::{from_utf8, from_utf8_mut};
 use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
-use futures::AsyncReadExt;
-use signals2::*;
-use slint::Weak;
+use bytes::Bytes;
+use json::{JsonValue, value};
+
 
 macro_rules! attempt { // `try` is a reserved keyword
    (@recurse ($a:expr) { } catch ($e:ident) $b:block) => {
@@ -31,10 +31,9 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let _tcpthread=
         thread::Builder::new().name("threadtcp".to_string()).spawn(move||{
+
         loop {
-            let mut respuestaJson =String::new();
-            let mut buffer = String::new();
-            thread::sleep(Duration::from_millis(5000));
+            thread::sleep(Duration::from_millis(2000));
             match TcpStream::connect("localhost:8085") {
                 Ok(mut stream) => {
                     println!("Successfully connected to server in port 8085");
@@ -49,9 +48,17 @@ fn main() -> Result<(), slint::PlatformError> {
 
                     stream.write(&*msg).unwrap();
                     println!("Sent Json, awaiting reply...");
-                    match stream.read_to_string(&mut buffer) {
-                        Ok(_) => {
-                            respuestaJson=buffer;
+
+                    let mut buf = [0;512];
+
+                    let stmclone = stream.try_clone();
+                    match stmclone.unwrap().read(&mut buf){
+                        Ok(n) => {
+                            let mhh = from_utf8_mut(&mut buf).unwrap().to_string();
+                            let my_string= mhh.trim_matches(char::from(0));
+                            let myjson= json::parse(my_string).unwrap();
+                            println!("{}", myjson["status"]);
+                            println!("Received {:?} bytes", n);
                         },
                         Err(e) => {
                             println!("Failed to receive data: {}", e);
@@ -63,12 +70,6 @@ fn main() -> Result<(), slint::PlatformError> {
                 }
             }
             println!("Terminated.");
-            let mut respuesta=json::from(respuestaJson);
-            if respuesta["status"] == "ok" {
-                println!("Reply is ok!");
-            } else {
-                println!("Unexpected reply: {}", respuesta["status"]);
-            }
             tx.send("connected").unwrap();
         }
     }).expect("TODO: panic message");
